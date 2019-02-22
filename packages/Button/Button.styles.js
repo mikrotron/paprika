@@ -33,7 +33,7 @@ const commonStyles = `
 `;
 
 const skeuomorphicStyles = `
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition-duration: 0.2s;
   transition-property: border;
@@ -127,11 +127,11 @@ const kindStyles = props => ({
   primary: `
     ${skeuomorphicStyles}
     ${coloredButtonStyles}
-    
+
     background-image: linear-gradient(${tokens.color.greenLighten10}, ${tokens.color.green});
     background-color: ${tokens.color.greenLighten10};
     border-color: ${tokens.color.green};
-    
+
     &:hover {
       background: ${tokens.color.green};
       border-color: ${tokens.border.greenDarken10};
@@ -146,7 +146,7 @@ const kindStyles = props => ({
     background-image: linear-gradient(${tokens.color.purpleLighten10}, ${tokens.color.purple});
     background-color: ${tokens.color.purpleLighten10};
     border-color: ${tokens.color.purple};
-    
+
     &:hover {
       background: ${tokens.color.purple};
       border-color: ${tokens.border.purpleDarken10};
@@ -161,7 +161,7 @@ const kindStyles = props => ({
     background-image: linear-gradient(${tokens.color.orangeHighlight}, ${tokens.color.orange});
     background-color: ${tokens.color.orangeHighlight};
     border-color: ${tokens.color.orange};
-    
+
     &:hover {
       background: ${tokens.color.orange};
       border-color: ${tokens.border.orangeDarken10};
