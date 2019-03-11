@@ -264,7 +264,9 @@ class Popover extends Component {
     //       can focus automatically
     //       should we set focus into the popover content automatically?
     if (this.isOpen() && event.propertyName === "visibility") {
-      event.target.focus();
+      if (this.props.isEager) {
+        event.target.focus();
+      }
     }
   };
 
