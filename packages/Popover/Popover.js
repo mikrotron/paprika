@@ -64,6 +64,9 @@ const propTypes = {
 
   /** Function that provides the scrolling DOM element that contains the popover. */
   getScrollContainer: PropTypes.func,
+
+  /** Number setting the z-index for the popover content */
+  zIndex: PropTypes.number,
 };
 
 const defaultProps = {
@@ -77,6 +80,7 @@ const defaultProps = {
   offset: parseInt(tokens.spaceLg, 10),
   getPositioningElement: null,
   getScrollContainer: null,
+  zIndex: 1,
 };
 
 class Popover extends Component {
@@ -117,11 +121,12 @@ class Popover extends Component {
   }
 
   getContextValues = memoizeOne(
-    (content, maxWidth, width, isDark, isEager, isOpen, portalElement, refContent, refTip, tip) => ({
+    (content, maxWidth, width, isDark, isEager, isOpen, portalElement, refContent, refTip, tip, zIndex) => ({
       content: {
         ...content,
         maxWidth, // maybe we should code a minimum maxWidth?
         width,
+        zIndex,
       },
       isDark,
       isEager,
@@ -236,8 +241,7 @@ class Popover extends Component {
   // eslint-disable-next-line react/sort-comp
   handleReposition = throttle(() => {
     if (this.isOpen()) {
-      const scrollContainer =
-        this.props.getScrollContainer === null ? document.documentElement : this.props.getScrollContainer();
+      const scrollContainer = this.props.getScrollContainer === null ? document.body : this.props.getScrollContainer();
       if (
         !isInsideBoundaries({
           $container: scrollContainer,
@@ -248,6 +252,7 @@ class Popover extends Component {
         this.close();
         return;
       }
+
       this.setVisibilityAndPosition();
     }
   }, throttleDelay);
@@ -386,6 +391,7 @@ class Popover extends Component {
       offset,
       getPositioningElement,
       getScrollContainer,
+      zIndex,
       ...moreProps
     } = this.props;
 
@@ -399,7 +405,8 @@ class Popover extends Component {
       this.$portal,
       this.refContent,
       this.refTip,
-      this.state.tip
+      this.state.tip,
+      zIndex
     );
 
     return (
