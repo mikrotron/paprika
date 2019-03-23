@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 
 import Basic from "./examples/Basic";
+import Simple from "./examples/Simple";
 import Controlled from "./examples/Controlled";
 import WithTriggers from "./examples/WithTriggers";
 import PositioningElement from "./examples/PositioningElement";
@@ -10,6 +11,7 @@ import Transformed from "./examples/Transformed";
 
 storiesOf("Popover", module)
   .add("Basic", () => <Basic />)
+  .add("Simple", () => <Simple />)
   .add("Controlled", () => <Controlled />)
   .add("With Trigger Components", () => <WithTriggers />)
   .add("With Positioning Element", () => <PositioningElement />)
