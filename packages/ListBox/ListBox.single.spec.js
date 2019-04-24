@@ -11,6 +11,6 @@ describe("Listbox single selection", () => {
       </ListBox>
     );
 
-    expect(getByRole("listbox")).not.toBeInTheDocument();
+    expect(getByRole("listbox")).toBeInTheDocument();
   });
 });
