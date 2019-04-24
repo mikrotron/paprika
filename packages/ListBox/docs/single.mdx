@@ -14,6 +14,8 @@ import * as Single from "../stories/examples/single";
 
 import { Playground, PropsTable } from "docz";
 
+# Single selection
+
 ## Getting started
 
 ```sh
@@ -26,7 +28,7 @@ or
   yarn add @paprika/listbox
 ```
 
-## basic
+## Basic
 
 <Playground>
   <ListBox zIndex={10000} getScrollContainer={() => document.querySelector("#root > div")}>
@@ -60,8 +62,91 @@ or
 
 ## Examples
 
-Displaying the listbox inline:
+### Displaying the listbox inline:
 
 <Playground>
   <Single.BasicInlineDisplay />
 </Playground>
+
+Code:
+
+```js
+<ListBox isInline>
+  <ListBox.Option>Punisher</ListBox.Option>
+  <ListBox.Option>Catwoman</ListBox.Option>
+  <ListBox.Option>Venom</ListBox.Option>
+  <ListBox.Option>Thunderbolts</ListBox.Option>
+  <ListBox.Option>Deadpool</ListBox.Option>
+  <ListBox.Option>Spawn</ListBox.Option>
+  <ListBox.Option>Wolverine</ListBox.Option>
+</ListBox>
+```
+
+---
+
+### With a filter:
+
+<Playground>
+  <Single.WithFilter />
+</Playground>
+
+Code:
+
+```js
+<ListBox hasFilter>
+  <ListBox.Option>Punisher</ListBox.Option>
+  <ListBox.Option>Catwoman</ListBox.Option>
+  <ListBox.Option>Venom</ListBox.Option>
+  <ListBox.Option>Thunderbolts</ListBox.Option>
+  <ListBox.Option>Deadpool</ListBox.Option>
+  <ListBox.Option>Spawn</ListBox.Option>
+  <ListBox.Option>Wolverine</ListBox.Option>
+</ListBox>
+```
+
+---
+
+### With a custom renderTrigger:
+
+<Playground>
+  <ListBox
+    renderTrigger={(state, dispatch, { getDOMAttributesForListBoxButton }) => (
+      <button
+        onClick={() => {
+          dispatch({ type: "OPEN_POPOVER" });
+        }}
+        type="button"
+        {...getDOMAttributesForListBoxButton()}
+        ref={state.refTrigger}
+      >
+        <span role="img" aria-label="rocket">
+          🚀
+        </span>
+        Toggle Listbox
+      </button>
+    )}
+    zIndex={10000}
+  >
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Thunderbolts</ListBox.Option>
+    <ListBox.Option>Deadpool</ListBox.Option>
+    <ListBox.Option>Spawn</ListBox.Option>
+    <ListBox.Option>Wolverine</ListBox.Option>
+  </ListBox>
+</Playground>
+
+Code:
+
+```js
+<ListBox renderTrigger={(state, dispatch, { getDOMAttributesForListBoxButton }) => <button>🚀 Toggle Listbox</button>}>
+  <ListBox.Option>Punisher</ListBox.Option>
+  <ListBox.Option>Catwoman</ListBox.Option>
+  <ListBox.Option>Venom</ListBox.Option>
+  <ListBox.Option>Thunderbolts</ListBox.Option>
+  <ListBox.Option>Deadpool</ListBox.Option>
+  <ListBox.Option>Spawn</ListBox.Option>
+  <ListBox.Option>Wolverine</ListBox.Option>
+</ListBox>
+```

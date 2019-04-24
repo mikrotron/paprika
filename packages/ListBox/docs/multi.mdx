@@ -4,4 +4,60 @@ route: "/listbox/multiple"
 menu: "Listbox"
 ---
 
+<!------------------- IMPORTS ------------------>
+
+import ListBox from "../index";
+import { ListBox as ListBoxProps } from "../ListBox";
+import OptionProps from "../components/Option";
+import GroupProps from "../components/Group";
+import * as Multi from "../stories/examples/multi";
+
+import { Playground, PropsTable } from "docz";
+
 # Multiple selection
+
+## Getting started
+
+```sh
+  npm install @paprika/listbox
+```
+
+or
+
+```sh
+  yarn add @paprika/listbox
+```
+
+## Basic
+
+<Playground>
+  <ListBox isMulti zIndex={10000} getScrollContainer={() => document.querySelector("#root > div")}>
+    <ListBox.Option>Spiderman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Carnage</ListBox.Option>
+  </ListBox>
+</Playground>
+
+```js
+<ListBox isMulti>
+  <ListBox.Option>Spiderman</ListBox.Option>
+  <ListBox.Option>Venom</ListBox.Option>
+  <ListBox.Option>Carnage</ListBox.Option>
+</ListBox>
+```
+
+## Props
+
+### ListBox
+
+<PropsTable of={ListBoxProps} />
+
+### ListBox.Option
+
+<PropsTable of={OptionProps} />
+
+### ListBox.Group
+
+<PropsTable of={GroupProps} />
+
+## Examples

@@ -25,7 +25,7 @@ export const propTypes = {
   /** Indicate which is the height for the options container */
   height: PropTypes.number,
 
-  /** [Advance] instead of marking the option as checked/unchecked will toggle the option between visible and hidden */
+  /** [Advance] instead of marking the option as checked/unchecked, will toggle the option between visible and hidden */
   hideOptionOnSelected: PropTypes.bool,
 
   /** Disable the entire ListBox */
@@ -37,14 +37,14 @@ export const propTypes = {
   /** This options will display the listbox without the Popover */
   isInline: PropTypes.bool,
 
-  /** When true the ListBox will try to focus to the options container asap the
-  popover is open */
+  /** When true the ListBox will try to focus to the options container as soon as the
+  Popover is open */
   isPopoverEager: PropTypes.bool,
 
-  /** Indicates if the popover is visible */
+  /** Indicates if the Popover is visible */
   isPopoverOpen: PropTypes.bool,
 
-  /** Message to be display once the filtering process doesn't find a match */
+  /** Message to be displayed once the filtering process doesn't find a match */
   hasNotResultsMessage: PropTypes.node,
 
   /** Callback returning the current selected index on the ListBox and more arguments */
