@@ -71,6 +71,7 @@ export default function Trigger(props) {
         onKeyUp={() => {}}
         isDisabled={isDisabled}
         data-raw-button="trigger"
+        data-qa-anchor="trigger"
       >
         <Label
           activeOption={state.options[state.activeOption]}
@@ -88,6 +89,7 @@ export default function Trigger(props) {
       {renderTrigger ? renderTrigger(state, dispatch, { getDOMAttributesForListBoxButton }) : renderLabel()}
       <TriggerActionIconsContainer>
         <RawButtonClearButtonStyled
+          data-qa-anchor="clear-button"
           hasRenderTrigger={renderTrigger}
           hasSelectedOptions={state.selectedOptions.length}
           isDisabled={isDisabled}

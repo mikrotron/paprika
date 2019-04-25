@@ -131,7 +131,12 @@ export function ListBox(props) {
 
   return (
     <React.Fragment>
-      <Trigger onClickClear={onClickClear} renderTrigger={renderTrigger} placeholder={placeholder} />
+      <Trigger
+        data-qa-anchor="listbox-trigger"
+        onClickClear={onClickClear}
+        renderTrigger={renderTrigger}
+        placeholder={placeholder}
+      />
       <Content>
         <Box>
           <Filter filter={props.filter} />
