@@ -19,23 +19,32 @@ function renderComponent(props = {}) {
     openSelect: () => {
       fireEvent.click(rendered.getByText(/select one of/i));
     },
+    closeSelect: () => {
+      fireEvent.click(rendered.getByText(/select one of/i));
+    },
     selectVenus: () => {
       fireEvent.click(rendered.getByText(/venus/i));
+    },
+    dropdownIsHidden: () => {
+      expect(rendered.getByTestId("popover-content").getAttribute("aria-hidden")).toBeTruthy();
+    },
+    dropdownIsNotHidden: () => {
+      expect(rendered.getByTestId("popover-content").getAttribute("aria-hidden")).toMatch(/false/i);
     },
   };
 }
 
 describe("Listbox single select", () => {
   it("dropdown should be hidden when first rendered", () => {
-    const { getByTestId } = renderComponent();
-    expect(getByTestId("popover-content").getAttribute("aria-hidden")).toBeTruthy();
+    const { getByTestId, dropdownIsHidden } = renderComponent();
+    dropdownIsHidden();
   });
 
   it("dropdown should be visible when clicked", () => {
-    const { getByText, getByTestId, openSelect } = renderComponent();
+    const { getByText, getByTestId, openSelect, dropdownIsNotHidden } = renderComponent();
 
     openSelect();
-    expect(getByTestId("popover-content").getAttribute("aria-hidden")).toMatch(/false/i);
+    dropdownIsNotHidden();
   });
 
   it("dropdown should have correct number of options", () => {
@@ -67,17 +76,32 @@ describe("Listbox single select", () => {
   });
 
   it("should be disabled", () => {
-    const { debug, openSelect } = renderComponent({
+    const { getByTestId, openSelect, dropdownIsHidden, dropdownIsNotHidden } = renderComponent({
       isDisabled: true,
     });
 
+    openSelect();
+    dropdownIsHidden();
+  });
+
+  it("should have a filter in dropdown", () => {
+    const { debug, getByTestId } = renderComponent({
+      hasFilter: true,
+    });
+
+    expect(getByTestId("list-filter")).toBeInTheDocument();
     debug();
   });
 
-  it("callback with selected index return", () => {
-    const onChange = jest.fn();
-    const {} = renderComponent({
-      onChange: jest.fn(),
-    });
-  });
+  // it("calls onClose prop when closing listbox with TriggerArrowStyled", () => {
+  //   const onCloseListBox = jest.fn();
+  //   const { getByTestId, openSelect, closeSelect, getByText, debug } = renderComponent({
+  //     onClose: onCloseListBox,
+  //   });
+  //
+  //   openSelect();
+  //   closeSelect();
+  //   //expect(onCloseListBox.mock.calls.length).toBe(1);
+  //   expect(onCloseListBox).toHaveBeenCalled();
+  // });
 });

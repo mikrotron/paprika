@@ -137,7 +137,7 @@ export default function Filter(props) {
     }
 
     return (
-      <FilterContainerStyled>
+      <FilterContainerStyled data-qa-anchor="list-filter">
         {props.hasSearchIcon ? <FilterSearchIconStyled /> : null}
         <FilterInputStyled
           isDisabled={state.isDisabled}
