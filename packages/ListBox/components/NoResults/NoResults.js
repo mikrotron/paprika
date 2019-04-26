@@ -11,7 +11,7 @@ export default function NoResults(props) {
   const { label } = props;
   const [state] = useListBox();
   if (state.isPopoverOpen && state.noResultsFound) {
-    return <NoResultsStyled>{label}</NoResultsStyled>;
+    return <NoResultsStyled data-qa-anchor="no-result-filter">{label}</NoResultsStyled>;
   }
 
   return null;

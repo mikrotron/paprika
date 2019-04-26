@@ -56,7 +56,7 @@ describe("Listbox single select", () => {
   });
 
   it("should close when choosing option and should show", () => {
-    const { getByText, getByTestId, openSelect, selectVenus } = renderComponent();
+    const { getByTestId, openSelect, selectVenus } = renderComponent();
 
     openSelect();
     selectVenus();
@@ -65,7 +65,7 @@ describe("Listbox single select", () => {
   });
 
   it("should clear selected option when x is clicked", () => {
-    const { getByText, getByTestId, openSelect, selectVenus } = renderComponent();
+    const { getByTestId, openSelect, selectVenus } = renderComponent();
 
     openSelect();
     selectVenus();
@@ -75,8 +75,37 @@ describe("Listbox single select", () => {
     expect(getByTestId("trigger")).toHaveTextContent(/select one of/i);
   });
 
+  it("should have a filter in dropdown", () => {
+    const { getByTestId, openSelect } = renderComponent({
+      hasFilter: true,
+    });
+
+    openSelect();
+    expect(getByTestId("list-filter")).toBeInTheDocument();
+  });
+
+  // FAIL
+  // it("should not show the 'x' clear button", () => {
+  //   const { debug, getByTestId, getByText, openSelect, selectVenus } = renderComponent({
+  //     hasClearButton: true,
+  //   });
+  //
+  //   openSelect();
+  //   selectVenus();
+  //   debug();
+  //   expect(getByTestId("clear-button")).not.toBeVisible();
+  // });
+
+  it("should have custom height of 500", () => {
+    const { getByTestId } = renderComponent({
+      height: 500,
+    });
+
+    expect(getByTestId("styled-list").getAttribute("height")).toMatch("500");
+  });
+
   it("should be disabled", () => {
-    const { getByTestId, openSelect, dropdownIsHidden, dropdownIsNotHidden } = renderComponent({
+    const { getByTestId, openSelect, dropdownIsHidden } = renderComponent({
       isDisabled: true,
     });
 
@@ -84,13 +113,33 @@ describe("Listbox single select", () => {
     dropdownIsHidden();
   });
 
-  it("should have a filter in dropdown", () => {
-    const { debug, getByTestId } = renderComponent({
-      hasFilter: true,
+  it("should be displayed inline with no Popover", () => {
+    const { queryByTestId } = renderComponent({
+      isInline: true,
     });
 
-    expect(getByTestId("list-filter")).toBeInTheDocument();
-    debug();
+    expect(queryByTestId("popover-content")).toBeNull();
+  });
+
+  it("should display message when filter input does not find a match", () => {
+    const { openSelect, getByTestId, getByText } = renderComponent({
+      hasFilter: true,
+      hasNotResultsMessage: "No match",
+    });
+
+    openSelect();
+    fireEvent.change(getByTestId("list-filter-input"), { target: { value: "g" } });
+    expect(getByTestId("no-result-filter")).toBeInTheDocument();
+    expect(getByText("No match")).toBeInTheDocument();
+  });
+
+  it("should display default label when no option is selected", () => {
+    const { openSelect, getByTestId, getByText } = renderComponent({
+      placeholder: "Select one of the options",
+    });
+
+    openSelect();
+    expect(getByText("Select one of the options")).toBeInTheDocument();
   });
 
   // it("calls onClose prop when closing listbox with TriggerArrowStyled", () => {

@@ -140,6 +140,7 @@ export default function Filter(props) {
       <FilterContainerStyled data-qa-anchor="list-filter">
         {props.hasSearchIcon ? <FilterSearchIconStyled /> : null}
         <FilterInputStyled
+          data-qa-anchor="list-filter-input"
           isDisabled={state.isDisabled}
           onBlur={handleBlur}
           onChange={handleChangeFilter}
