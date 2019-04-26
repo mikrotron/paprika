@@ -22,10 +22,10 @@ export const propTypes = {
   /** Turn on/off the clear button at the right side of the Trigger */
   hasClearButton: PropTypes.bool,
 
-  /** Indicate which is the height for the options container */
+  /** Indicate the height for the options container */
   height: PropTypes.number,
 
-  /** [Advance] instead of marking the option as checked/unchecked, will toggle the option between visible and hidden */
+  /** [Advance] instead of marking the option as checked/unchecked, the option will toggle between visible and hidden */
   hideOptionOnSelected: PropTypes.bool,
 
   /** Disable the entire ListBox */
@@ -50,7 +50,7 @@ export const propTypes = {
   /** Callback returning the current selected index on the ListBox and more arguments */
   onChange: PropTypes.func,
 
-  /** Callback ocurring after the user click the [x] clear button on the Trigger area */
+  /** Callback ocurring after the user clicks the [x] clear button in the Trigger area */
   onClickClear: PropTypes.func,
 
   /** Callback announcing which option has been marked as selected */
@@ -62,7 +62,7 @@ export const propTypes = {
   /** Callback happening once the Popover has close */
   onClose: PropTypes.func,
 
-  /** Defaults label to display when the ListBox has not option selected */
+  /** Default label to display when no option is selected */
   placeholder: PropTypes.string,
 
   /** [Advance] Override the 'scroll' target element for popover default is document.body  */
@@ -80,7 +80,7 @@ export const propTypes = {
       want to render a checkbox you can return null ex. renderCheckbox={() =>  null} */
   renderCheckbox: PropTypes.func,
 
-  /** Overrides the filter function and delegate the responsibility to the developer */
+  /** Overrides the filter function and delegates the responsibility to the developer */
   filter: PropTypes.func,
 
   /** z-index for the popover */
