@@ -30,6 +30,14 @@ or
 
 ## Basic
 
+The Multi select behaves the same way as the single select and has the same props.
+
+To make the `<ListBox />` behave as a multi select, the developer needs to pass the _prop_ isMulti
+`<ListBox isMulti />`.
+
+> Note:
+> In single select, `onChange` event returns the selected index number, while multi select will return an array of indexes.
+
 <Playground>
   <ListBox isMulti zIndex={10000} getScrollContainer={() => document.querySelector("#root > div")}>
     <ListBox.Option>Spiderman</ListBox.Option>
