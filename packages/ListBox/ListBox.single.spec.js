@@ -41,7 +41,7 @@ describe("Listbox single select", () => {
   });
 
   it("dropdown should be visible when clicked", () => {
-    const { getByText, getByTestId, openSelect, dropdownIsNotHidden } = renderComponent();
+    const { openSelect, dropdownIsNotHidden } = renderComponent();
 
     openSelect();
     dropdownIsNotHidden();
@@ -84,17 +84,18 @@ describe("Listbox single select", () => {
     expect(getByTestId("list-filter")).toBeInTheDocument();
   });
 
-  // FAIL
-  // it("should not show the 'x' clear button", () => {
-  //   const { debug, getByTestId, getByText, openSelect, selectVenus } = renderComponent({
-  //     hasClearButton: true,
-  //   });
-  //
-  //   openSelect();
-  //   selectVenus();
-  //   debug();
-  //   expect(getByTestId("clear-button")).not.toBeVisible();
-  // });
+  //FAIL
+  it("should not render the 'x' clear button", () => {
+    const { queryByTestId, openSelect, selectVenus, debug } = renderComponent({
+      hasClearButton: true,
+    });
+
+    openSelect();
+    selectVenus();
+    //expect(getByTestId("clear-button")).not.toBeInTheDocument();
+    expect(queryByTestId("clear-button")).toBeNull();
+    debug();
+  });
 
   it("should have custom height of 500", () => {
     const { getByTestId } = renderComponent({
@@ -120,6 +121,21 @@ describe("Listbox single select", () => {
 
     expect(queryByTestId("popover-content")).toBeNull();
   });
+
+  // it("should focus on option container as soon as the Popover is open", () => {
+  //   const { openSelect, getByTestId, getByText } = renderComponent({
+  //     isPopoverEager: true,
+  //   });
+  //
+  //   openSelect();
+  //   // const optionFocus = getByText("Venus");
+  //   // expect(document.activeElement).toEqual(optionFocus);
+  //   // act(() => getByText("Venus").focus());
+  //   // expect(getByText("Venus").toHaveFocus());
+  //   //titleInput.focus(getByText("Venus"));
+  //   getByText("Venus").focus();
+  //   expect(getByText("Venus").toHaveFocus());
+  // });
 
   it("should display message when filter input does not find a match", () => {
     const { openSelect, getByTestId, getByText } = renderComponent({

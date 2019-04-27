@@ -19,7 +19,7 @@ export const propTypes = {
   /** Turn on the input filter for the options */
   hasFilter: PropTypes.bool,
 
-  /** Turn on/off the clear button at the right side of the Trigger */
+  /** To set whether or not to render clear button at the right side of the Trigger */
   hasClearButton: PropTypes.bool,
 
   /** Indicate the height for the options container */
