@@ -351,3 +351,15 @@ export const WithGroups = () => (
     </ListBox.Group>
   </ListBox>
 );
+
+export const HasClearButtonDisabled = () => (
+  <ListBox isInline isDisabled>
+    <ListBox.Option isSelected>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Thunderbolts</ListBox.Option>
+    <ListBox.Option>Deadpool</ListBox.Option>
+    <ListBox.Option>Spawn</ListBox.Option>
+    <ListBox.Option>Wolverine</ListBox.Option>
+  </ListBox>
+);

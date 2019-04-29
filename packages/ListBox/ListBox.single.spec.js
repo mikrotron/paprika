@@ -55,7 +55,7 @@ describe("Listbox single select", () => {
     expect(getByText(/jupiter/i)).toBeInTheDocument();
   });
 
-  it("should close when choosing option and should show", () => {
+  it("should close when choosing option and should show clear button", () => {
     const { getByTestId, openSelect, selectVenus } = renderComponent();
 
     openSelect();
@@ -87,7 +87,7 @@ describe("Listbox single select", () => {
   //FAILED
   // it("should not render the 'x' clear button", () => {
   //   const { queryByTestId, openSelect, selectVenus, debug } = renderComponent({
-  //     hasClearButton: true,
+  //     hasClearButton: false,
   //   });
   //
   //   openSelect();
@@ -158,21 +158,16 @@ describe("Listbox single select", () => {
     expect(getByText("Select one of the options")).toBeInTheDocument();
   });
 
-  // it("calls onClose when closing listbox", () => {
-  //   const onCloseListBox = jest.fn();
-  //   const { getByTestId, debug, openSelect, closeSelect, selectVenus } = renderComponent({
-  //     onClose: onCloseListBox,
-  //   });
-  //
-  //   openSelect();
-  //   selectVenus();
-  //   expect(getByTestId("popover-content").getAttribute("aria-hidden")).toBeTruthy();
-  //   //dropdownIsNotHidden();
-  //   debug();
-  //   //closeSelect();
-  //   //expect(onCloseListBox.mock.calls.length).toBe(1);
-  //   expect(onCloseListBox).toHaveBeenCalled();
-  // });
+  it("calls onClose when Popover closes", () => {
+    const onCloseListBox = jest.fn();
+    const { getByTestId, debug, openSelect, selectVenus } = renderComponent({
+      onClose: onCloseListBox("Zesty"),
+    });
+
+    openSelect();
+    selectVenus();
+    expect(onCloseListBox).toHaveBeenCalledWith("Zesty");
+  });
 
   it("calls onClickClear event when clicking clear button", () => {
     const onClickClearTrigger = jest.fn();
@@ -186,14 +181,18 @@ describe("Listbox single select", () => {
     expect(onClickClearTrigger).toHaveBeenCalled();
   });
 
-  it("changes the render method for label", () => {
-    const onRenderTrig = jest.fn();
-    const { getByTestId, openSelect, selectVenus } = renderComponent({
-      renderTrigger: onRenderTrig,
-    });
-
-    expect(onRenderTrig).toHaveBeenCalled();
-  });
+  // it("changes the render method for label", () => {
+  //   // need to pass a function
+  //   const onRenderTrig = jest.fn();
+  //   const { getByTestId, openSelect, selectVenus, getByText, debug } = renderComponent({
+  //     renderTrigger: onRenderTrig,
+  //   });
+  //
+  //   expect(onRenderTrig).toHaveBeenCalled();
+  //   fireEvent.click(getByTestId("listbox-trigger"));
+  //   expect(getByText(/venus/i)).toBeInTheDocument();
+  //   expect(getByText(/jupiter/i)).toBeInTheDocument();
+  // });
 
   // it("should focus on trigger", () => {
   //   const { openSelect, closeSelect, getByTestId, getByText } = renderComponent({

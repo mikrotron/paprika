@@ -22,3 +22,4 @@ storiesOf("ListBox / single", module).add("Checkboxes", () => <Single.Checkboxes
 storiesOf("ListBox / single", module).add("Custom renderTrigger", () => <Single.CustomRenderTrigger />);
 storiesOf("ListBox / single", module).add("Has clear button", () => <Single.HasClearButton />);
 storiesOf("ListBox / single", module).add("Custom Checkers", () => <Single.WithCustomCheckers />);
+storiesOf("ListBox / single", module).add("Has Clear Button Disabled", () => <Single.HasClearButtonDisabled />);

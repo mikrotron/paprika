@@ -67,9 +67,10 @@ describe("Listbox multi select", () => {
 
     openSelect();
     selectVenus();
+    expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
     debug();
     console.log(onSelectedListBox.mock.instances);
-    //expect(onCloseListBox.mock.calls.length).toBe(1);
+    //expect(onSelectedListBox.mock.calls.length).toBe(1);
     expect(onSelectedListBox).toHaveBeenCalled();
   });
 });
