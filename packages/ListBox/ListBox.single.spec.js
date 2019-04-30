@@ -25,6 +25,9 @@ function renderComponent(props = {}) {
     selectVenus: () => {
       fireEvent.click(rendered.getByText(/venus/i));
     },
+    selectJupiter: () => {
+      fireEvent.click(rendered.getByText(/jupiter/i));
+    },
     dropdownIsHidden: () => {
       expect(rendered.getByTestId("popover-content").getAttribute("aria-hidden")).toBeTruthy();
     },
@@ -90,11 +93,11 @@ describe("Listbox single select", () => {
   //     hasClearButton: false,
   //   });
   //
-  //   openSelect();
-  //   selectVenus();
+  //   // openSelect();
+  //   // selectVenus();
   //   //expect(getByTestId("clear-button")).not.toBeInTheDocument();
-  //   expect(queryByTestId("clear-button")).toBeNull();
   //   debug();
+  //   expect(queryByTestId("clear-button")).toBeNull();
   // });
 
   it("should have custom height of 500", () => {
@@ -122,20 +125,21 @@ describe("Listbox single select", () => {
     expect(queryByTestId("popover-content")).toBeNull();
   });
 
-  // it("should focus on option container as soon as the Popover is open", () => {
-  //   const { openSelect, getByTestId, getByText } = renderComponent({
-  //     isPopoverEager: true,
-  //   });
-  //
-  //   openSelect();
-  //   // const optionFocus = getByText("Venus");
-  //   // expect(document.activeElement).toEqual(optionFocus);
-  //   // act(() => getByText("Venus").focus());
-  //   // expect(getByText("Venus").toHaveFocus());
-  //   //titleInput.focus(getByText("Venus"));
-  //   //getByText("Venus").focus();
-  //   expect(getByText("Venus").toHaveFocus());
-  // });
+  it("should focus on option container as soon as the Popover is open", () => {
+    const { openSelect, getByTestId } = renderComponent();
+
+    openSelect();
+    expect(document.activeElement).toBe(getByTestId("popover-content"));
+  });
+
+  it("should not focus on option container as soon as the Popover is open", () => {
+    const { openSelect, getByTestId } = renderComponent({
+      isPopoverEager: false,
+    });
+
+    openSelect();
+    expect(document.activeElement).not.toBe(getByTestId("popover-content"));
+  });
 
   it("should display message when filter input does not find a match", () => {
     const { openSelect, getByTestId, getByText } = renderComponent({
@@ -158,20 +162,41 @@ describe("Listbox single select", () => {
     expect(getByText("Select one of the options")).toBeInTheDocument();
   });
 
-  it("calls onClose when Popover closes", () => {
-    const onCloseListBox = jest.fn();
-    const { getByTestId, debug, openSelect, selectVenus } = renderComponent({
-      onClose: onCloseListBox("Zesty"),
+  // onClose not being used in listbox
+  // it("calls onClose when Popover closes", () => {
+  //   const onCloseListBox = jest.fn();
+  //   const { getByTestId, debug, openSelect, selectVenus } = renderComponent({
+  //     onClose: onCloseListBox,
+  //   });
+  //   openSelect();
+  //   selectVenus();
+  //   // expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
+  //   expect(onCloseListBox).toHaveBeenCalled();
+  // });
+
+  // Gets called on unmount - soo being called atleast once
+  it("calls onChange", () => {
+    const onChangeListBox = jest.fn();
+    const { getByTestId, getByText, debug, openSelect, selectVenus } = renderComponent({
+      onChange: onChangeListBox,
     });
 
     openSelect();
     selectVenus();
-    expect(onCloseListBox).toHaveBeenCalledWith("Zesty");
+    // fireEvent.click(getByText(/venus/i));
+    // selectVenus();
+    console.log("Hello", onChangeListBox.mock.calls.length);
+    console.log("Hey", onChangeListBox.mock.instances[0]);
+    expect(onChangeListBox).toHaveBeenCalled();
+    //expect(onChangeListBox.mock.results[0].value).toBe(1);
   });
 
+  // onClickClear passes even when clear button is not shown on the UI
+  // after selecting an option from the popover
+  // Because of CSS the clear button is still present
   it("calls onClickClear event when clicking clear button", () => {
     const onClickClearTrigger = jest.fn();
-    const { getByTestId, openSelect, selectVenus } = renderComponent({
+    const { getByTestId, openSelect, selectVenus, debug } = renderComponent({
       onClickClear: onClickClearTrigger,
     });
 
@@ -180,6 +205,18 @@ describe("Listbox single select", () => {
     fireEvent.click(getByTestId("clear-button"));
     expect(onClickClearTrigger).toHaveBeenCalled();
   });
+
+  // it("calls onSelected when an option is selected", () => {
+  //   const onSelectedOption = jest.fn();
+  //   const { openSelect, selectVenus, getByTestId } = renderComponent({
+  //     onSelected: onSelectedOption,
+  //   });
+  //
+  //   openSelect();
+  //   selectVenus();
+  //   expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
+  //   expect(onSelectedOption).toHaveBeenCalled();
+  // });
 
   // it("changes the render method for label", () => {
   //   // need to pass a function
@@ -192,15 +229,5 @@ describe("Listbox single select", () => {
   //   fireEvent.click(getByTestId("listbox-trigger"));
   //   expect(getByText(/venus/i)).toBeInTheDocument();
   //   expect(getByText(/jupiter/i)).toBeInTheDocument();
-  // });
-
-  // it("should focus on trigger", () => {
-  //   const { openSelect, closeSelect, getByTestId, getByText } = renderComponent({
-  //     preventOnBlurForTriggerListBox: true,
-  //   });
-  //
-  //   openSelect();
-  //   closeSelect();
-  //   expect(getByTestId("trigger")).toHaveFocus();
   // });
 });

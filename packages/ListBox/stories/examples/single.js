@@ -363,3 +363,71 @@ export const HasClearButtonDisabled = () => (
     <ListBox.Option>Wolverine</ListBox.Option>
   </ListBox>
 );
+
+export const HasOnCloseCallback = () => (
+  <ListBox
+    onClose={() => {
+      console.log("HasOnClose");
+    }}
+  >
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Thunderbolts</ListBox.Option>
+    <ListBox.Option>Deadpool</ListBox.Option>
+    <ListBox.Option>Spawn</ListBox.Option>
+    <ListBox.Option>Wolverine</ListBox.Option>
+    <ListBox.Option>Black Widow</ListBox.Option>
+    <ListBox.Option>Hawkeye</ListBox.Option>
+    <ListBox.Option>Scarlet Witch</ListBox.Option>
+  </ListBox>
+);
+
+export const HasOnSelected = () => (
+  <ListBox
+    onChange={e => {
+      console.log(e);
+    }}
+  >
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Thunderbolts</ListBox.Option>
+    <ListBox.Option>Deadpool</ListBox.Option>
+    <ListBox.Option>Spawn</ListBox.Option>
+    <ListBox.Option>Wolverine</ListBox.Option>
+    <ListBox.Option>Black Widow</ListBox.Option>
+    <ListBox.Option>Hawkeye</ListBox.Option>
+    <ListBox.Option>Scarlet Witch</ListBox.Option>
+  </ListBox>
+);
+
+export const HasNoClearButton = () => (
+  <ListBox hasClearButton={true}>
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Thunderbolts</ListBox.Option>
+    <ListBox.Option>Deadpool</ListBox.Option>
+    <ListBox.Option>Spawn</ListBox.Option>
+    <ListBox.Option>Wolverine</ListBox.Option>
+    <ListBox.Option>Black Widow</ListBox.Option>
+    <ListBox.Option>Hawkeye</ListBox.Option>
+    <ListBox.Option>Scarlet Witch</ListBox.Option>
+  </ListBox>
+);
+
+export const WithPopoverEager = () => (
+  <ListBox isPopoverEager={false}>
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Thunderbolts</ListBox.Option>
+    <ListBox.Option>Deadpool</ListBox.Option>
+    <ListBox.Option>Spawn</ListBox.Option>
+    <ListBox.Option>Wolverine</ListBox.Option>
+    <ListBox.Option>Black Widow</ListBox.Option>
+    <ListBox.Option>Hawkeye</ListBox.Option>
+    <ListBox.Option>Scarlet Witch</ListBox.Option>
+  </ListBox>
+);
