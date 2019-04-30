@@ -15,7 +15,14 @@ export default function Popover(props) {
   const { children, zIndex } = props;
 
   return (
-    <PopoverStyled {...props} zIndex={zIndex} offset={0} maxWidth={state.triggerWidth} isOpen={state.isPopoverOpen}>
+    <PopoverStyled
+      data-qa-anchor="Popover-zIndex"
+      {...props}
+      zIndex={zIndex}
+      offset={0}
+      maxWidth={state.triggerWidth}
+      isOpen={state.isPopoverOpen}
+    >
       {children}
     </PopoverStyled>
   );

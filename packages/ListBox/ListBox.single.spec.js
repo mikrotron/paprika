@@ -55,7 +55,7 @@ describe("Listbox single select", () => {
     expect(getByText(/jupiter/i)).toBeInTheDocument();
   });
 
-  it("should close when choosing option and should show clear button", () => {
+  it("dropdown should close when choosing option and show clear button", () => {
     const { getByTestId, openSelect, selectVenus } = renderComponent();
 
     openSelect();
@@ -84,16 +84,20 @@ describe("Listbox single select", () => {
     expect(getByTestId("list-filter")).toBeInTheDocument();
   });
 
-  //FAILED
+  //FAILS clear button still renders and still visible
   // it("should not render the 'x' clear button", () => {
-  //   const { queryByTestId, openSelect, selectVenus, debug } = renderComponent({
+  //   const { getByTestId, queryByTestId, openSelect, selectVenus, debug } = renderComponent({
   //     hasClearButton: false,
   //   });
   //
   //   // openSelect();
   //   // selectVenus();
   //   //expect(getByTestId("clear-button")).not.toBeInTheDocument();
-  //   expect(queryByTestId("clear-button")).toBeNull();
+  //   //expect(queryByTestId("clear-button")).toBeNull();
+  //   openSelect();
+  //   selectVenus();
+  //   debug();
+  //   expect(getByTestId("clear-button")).not.toBeVisible();
   // });
 
   it("should have custom height of 500", () => {
@@ -149,13 +153,28 @@ describe("Listbox single select", () => {
     expect(getByText("No match")).toBeInTheDocument();
   });
 
-  it("should display default label when no option is selected", () => {
-    const { openSelect, getByTestId, getByText } = renderComponent({
-      placeholder: "Select one of the options",
+  it("placeholder should display default label when no option is selected", () => {
+    const { getByText } = renderComponent();
+
+    expect(getByText("Select one of the options")).toBeInTheDocument();
+  });
+
+  it("placeholder should display custom label when no option is selected", () => {
+    const { getByText } = renderComponent({
+      placeholder: "Choose an option!",
     });
 
-    openSelect();
-    expect(getByText("Select one of the options")).toBeInTheDocument();
+    expect(getByText("Choose an option!")).toBeInTheDocument();
+  });
+
+  it("should have custom zIndex of 999", () => {
+    const { getByText, getByTestId, debug } = renderComponent({
+      zIndex: 999,
+    });
+
+    expect(getByTestId("Popover-zIndex")).toBeInTheDocument();
+    debug();
+    expect(getByTestId("Popover-zIndex").getAttribute("zIndex")).toBe(999);
   });
 
   // Ask about
@@ -213,9 +232,7 @@ describe("Listbox single select", () => {
   //   expect(onSelectedOption).toHaveBeenCalled();
   // });
 
-  it("changes the render method for label", () => {
-    // need to pass a function
-    //const onRenderTrig = jest.fn();
+  it("calls renderTrigger and changes the render method for label", () => {
     const onRenderTrig = jest.fn((state, dispatch, { getDOMAttributesForListBoxButton }) => (
       <button
         onClick={() => {
