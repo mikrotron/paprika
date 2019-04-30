@@ -19,9 +19,6 @@ function renderComponent(props = {}) {
     openSelect: () => {
       fireEvent.click(rendered.getByText(/select one of/i));
     },
-    closeSelect: () => {
-      fireEvent.click(rendered.getByText(/select one of/i));
-    },
     selectVenus: () => {
       fireEvent.click(rendered.getByText(/venus/i));
     },
@@ -96,7 +93,6 @@ describe("Listbox single select", () => {
   //   // openSelect();
   //   // selectVenus();
   //   //expect(getByTestId("clear-button")).not.toBeInTheDocument();
-  //   debug();
   //   expect(queryByTestId("clear-button")).toBeNull();
   // });
 
@@ -162,6 +158,7 @@ describe("Listbox single select", () => {
     expect(getByText("Select one of the options")).toBeInTheDocument();
   });
 
+  // Ask about
   // onClose not being used in listbox
   // it("calls onClose when Popover closes", () => {
   //   const onCloseListBox = jest.fn();
@@ -170,25 +167,22 @@ describe("Listbox single select", () => {
   //   });
   //   openSelect();
   //   selectVenus();
-  //   // expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
+  //   expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
   //   expect(onCloseListBox).toHaveBeenCalled();
   // });
 
-  // Gets called on unmount - soo being called atleast once
+  // onChange gets called on unmount - soo being called atleast once
+  // before selecting any option
   it("calls onChange", () => {
-    const onChangeListBox = jest.fn();
-    const { getByTestId, getByText, debug, openSelect, selectVenus } = renderComponent({
-      onChange: onChangeListBox,
+    const onOptionClick = jest.fn();
+    const { openSelect, selectVenus } = renderComponent({
+      onChange: onOptionClick,
     });
 
     openSelect();
     selectVenus();
-    // fireEvent.click(getByText(/venus/i));
-    // selectVenus();
-    console.log("Hello", onChangeListBox.mock.calls.length);
-    console.log("Hey", onChangeListBox.mock.instances[0]);
-    expect(onChangeListBox).toHaveBeenCalled();
-    //expect(onChangeListBox.mock.results[0].value).toBe(1);
+    console.log("Hello", onOptionClick.mock.calls.length);
+    expect(onOptionClick).toHaveBeenCalled();
   });
 
   // onClickClear passes even when clear button is not shown on the UI
@@ -206,6 +200,7 @@ describe("Listbox single select", () => {
     expect(onClickClearTrigger).toHaveBeenCalled();
   });
 
+  // Ask about
   // it("calls onSelected when an option is selected", () => {
   //   const onSelectedOption = jest.fn();
   //   const { openSelect, selectVenus, getByTestId } = renderComponent({
@@ -218,16 +213,31 @@ describe("Listbox single select", () => {
   //   expect(onSelectedOption).toHaveBeenCalled();
   // });
 
-  // it("changes the render method for label", () => {
-  //   // need to pass a function
-  //   const onRenderTrig = jest.fn();
-  //   const { getByTestId, openSelect, selectVenus, getByText, debug } = renderComponent({
-  //     renderTrigger: onRenderTrig,
-  //   });
-  //
-  //   expect(onRenderTrig).toHaveBeenCalled();
-  //   fireEvent.click(getByTestId("listbox-trigger"));
-  //   expect(getByText(/venus/i)).toBeInTheDocument();
-  //   expect(getByText(/jupiter/i)).toBeInTheDocument();
-  // });
+  it("changes the render method for label", () => {
+    // need to pass a function
+    //const onRenderTrig = jest.fn();
+    const onRenderTrig = jest.fn((state, dispatch, { getDOMAttributesForListBoxButton }) => (
+      <button
+        onClick={() => {
+          dispatch({ type: "OPEN_POPOVER" });
+        }}
+        type="button"
+        {...getDOMAttributesForListBoxButton()}
+        ref={state.refTrigger}
+      >
+        customTrigger
+      </button>
+    ));
+    const { dropdownIsNotHidden, selectVenus, getByText } = renderComponent({
+      renderTrigger: onRenderTrig,
+    });
+
+    expect(onRenderTrig).toHaveBeenCalled();
+    expect(getByText(/customTrigger/i)).toBeInTheDocument();
+    fireEvent.click(getByText(/customTrigger/i));
+    dropdownIsNotHidden();
+    expect(getByText(/venus/i)).toBeInTheDocument();
+    expect(getByText(/jupiter/i)).toBeInTheDocument();
+    selectVenus();
+  });
 });

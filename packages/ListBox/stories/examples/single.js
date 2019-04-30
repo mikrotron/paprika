@@ -385,7 +385,7 @@ export const HasOnCloseCallback = () => (
 
 export const HasOnSelected = () => (
   <ListBox
-    onChange={e => {
+    onSelected={e => {
       console.log(e);
     }}
   >
@@ -403,22 +403,7 @@ export const HasOnSelected = () => (
 );
 
 export const HasNoClearButton = () => (
-  <ListBox hasClearButton={true}>
-    <ListBox.Option>Punisher</ListBox.Option>
-    <ListBox.Option>Catwoman</ListBox.Option>
-    <ListBox.Option>Venom</ListBox.Option>
-    <ListBox.Option>Thunderbolts</ListBox.Option>
-    <ListBox.Option>Deadpool</ListBox.Option>
-    <ListBox.Option>Spawn</ListBox.Option>
-    <ListBox.Option>Wolverine</ListBox.Option>
-    <ListBox.Option>Black Widow</ListBox.Option>
-    <ListBox.Option>Hawkeye</ListBox.Option>
-    <ListBox.Option>Scarlet Witch</ListBox.Option>
-  </ListBox>
-);
-
-export const WithPopoverEager = () => (
-  <ListBox isPopoverEager={false}>
+  <ListBox hasClearButton={false}>
     <ListBox.Option>Punisher</ListBox.Option>
     <ListBox.Option>Catwoman</ListBox.Option>
     <ListBox.Option>Venom</ListBox.Option>

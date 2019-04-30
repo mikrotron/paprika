@@ -26,4 +26,3 @@ storiesOf("ListBox / single", module).add("Has Clear Button Disabled", () => <Si
 storiesOf("ListBox / single", module).add("Has onClose Callback", () => <Single.HasOnCloseCallback />);
 storiesOf("ListBox / single", module).add("Has onSelected Callback", () => <Single.HasOnSelected />);
 storiesOf("ListBox / single", module).add("Has no clear button ('x')", () => <Single.HasNoClearButton />);
-storiesOf("ListBox / single", module).add("Has isPopoverEager prop", () => <Single.WithPopoverEager />);
