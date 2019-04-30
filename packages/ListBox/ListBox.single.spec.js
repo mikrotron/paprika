@@ -172,9 +172,9 @@ describe("Listbox single select", () => {
       zIndex: 999,
     });
 
-    expect(getByTestId("Popover-zIndex")).toBeInTheDocument();
+    expect(getByTestId("popover-content")).toBeInTheDocument();
     debug();
-    expect(getByTestId("Popover-zIndex").getAttribute("zIndex")).toBe(999);
+    expect(getByTestId("popover-content").getAttribute("zIndex")).toBe(999);
   });
 
   // Ask about
