@@ -26,3 +26,4 @@ storiesOf("ListBox / multi", module).add("With Groups and have selection by grou
 storiesOf("ListBox / multi", module).add("With Groups and have preselected options", () => (
   <Multi.WithGroupsAndHavePreselectedOptions />
 ));
+storiesOf("ListBox / multi", module).add("Has callback onselect", () => <Multi.HasOnSelectedMulti />);

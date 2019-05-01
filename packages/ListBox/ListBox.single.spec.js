@@ -167,16 +167,16 @@ describe("Listbox single select", () => {
     expect(getByText("Choose an option!")).toBeInTheDocument();
   });
 
-  // it("should have custom zIndex of 999", () => {
-  //   const { getByText, getByTestId, debug } = renderComponent({
-  //     zIndex: 999,
-  //   });
-  //
-  //   expect(getByTestId("popover-content")).toBeInTheDocument();
-  //   debug();
-  //   console.log("hey", getByTestId("popover-zindex"));
-  //   expect(getByTestId("popover-content").getAttribute("zIndex")).toBe(999);
-  // });
+  it("should have custom zIndex of 999", () => {
+    const { getByText, getByTestId, debug } = renderComponent({
+      zIndex: 999,
+    });
+
+    expect(getByTestId("popover-zindex")).toBeInTheDocument();
+    debug();
+    //console.log("hey", getByTestId("popover-zindex").getAttribute("zIndex"));
+    //expect(getByTestId("popover-content").getAttribute("zIndex")).toBe(999);
+  });
 
   it("should have popover open already ", () => {
     const { dropdownIsHidden, dropdownIsNotHidden, debug } = renderComponent({
@@ -212,7 +212,7 @@ describe("Listbox single select", () => {
 
     openSelect();
     selectVenus();
-    console.log("Hello", onOptionClick.mock.calls.length);
+    //console.log("Hello", onOptionClick.mock.calls.length);
     expect(onOptionClick).toHaveBeenCalled();
   });
 
@@ -241,6 +241,7 @@ describe("Listbox single select", () => {
   //   openSelect();
   //   selectVenus();
   //   expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
+  //   console.log("Hi", onSelectedOption.mock);
   //   expect(onSelectedOption).toHaveBeenCalled();
   // });
 
@@ -289,4 +290,15 @@ describe("Listbox single select", () => {
     expect(getByText(/🙅‍venus/i)).toBeInTheDocument();
     expect(getByText(/✅jupiter/i)).toBeInTheDocument();
   });
+
+  // it("calls custom filter", () => {
+  //   const changeFilter = jest.fn();
+  //   const { openSelect, selectVenus } = renderComponent({
+  //     filter: changeFilter,
+  //   });
+  //
+  //   // openSelect();
+  //   // selectVenus();
+  //   expect(changeFilter).toHaveBeenCalled();
+  // });
 });
