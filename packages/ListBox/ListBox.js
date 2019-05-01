@@ -43,7 +43,7 @@ export const propTypes = {
   Popover is open */
   isPopoverEager: PropTypes.bool,
 
-  /** Indicates if the Popover is visible */
+  /** Indicates whether the Popover should be open already */
   isPopoverOpen: PropTypes.bool,
 
   /** Message to be displayed once the filtering process doesn't find a match */

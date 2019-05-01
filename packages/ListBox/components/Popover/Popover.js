@@ -16,7 +16,7 @@ export default function Popover(props) {
 
   return (
     <PopoverStyled
-      data-qa-anchor="Popover-zIndex"
+      data-qa-anchor="popover-zindex"
       {...props}
       zIndex={zIndex}
       offset={0}

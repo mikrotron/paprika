@@ -17,7 +17,7 @@ function renderComponent(props = {}) {
   return {
     ...rendered,
     openSelect: () => {
-      fireEvent.click(rendered.getByText(/select one of/i));
+      fireEvent.click(rendered.getByTestId("trigger"));
     },
     selectVenus: () => {
       fireEvent.click(rendered.getByText(/venus/i));
@@ -173,8 +173,18 @@ describe("Listbox single select", () => {
   //   });
   //
   //   expect(getByTestId("popover-content")).toBeInTheDocument();
+  //   debug();
+  //   console.log("hey", getByTestId("popover-zindex"));
   //   expect(getByTestId("popover-content").getAttribute("zIndex")).toBe(999);
   // });
+
+  it("should have popover open already ", () => {
+    const { dropdownIsHidden, dropdownIsNotHidden, debug } = renderComponent({
+      isPopoverOpen: true,
+    });
+
+    dropdownIsNotHidden();
+  });
 
   // Ask about
   // onClose not being used in listbox
@@ -271,10 +281,9 @@ describe("Listbox single select", () => {
     openSelect();
     selectVenus();
     expect(getByText(/✅/i)).toBeInTheDocument();
-    // open popover
-    fireEvent.click(getByText(/venus/i));
-    //choose jupiter
+    openSelect();
     fireEvent.click(getByText(/jupiter/i));
+    expect(getByText(/🙅‍venus/i)).toBeInTheDocument();
     expect(getByText(/✅jupiter/i)).toBeInTheDocument();
   });
 });

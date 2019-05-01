@@ -69,3 +69,42 @@ To make the `<ListBox />` behave as a multi select, the developer needs to pass 
 <PropsTable of={GroupProps} />
 
 ## Examples
+
+### Displaying ListBox with multi select and custom checkboxes:
+
+<Playground>
+  <ListBox
+    isMulti
+    renderCheckbox={isChecked => {
+      return isChecked ? "✅" : "🙅‍";
+    }}
+    getScrollContainer={() => document.querySelector("#root > div")}
+  >
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+  </ListBox>
+</Playground>
+
+To display custom check boxes, add `renderCheckbox` with a function returning
+the type of check box to render depeneding on whether the user has selected
+the option or not.
+
+> Note: Custom check boxes also work in single select.
+
+Code:
+
+```js
+<ListBox
+  isMulti
+  renderCheckbox={isChecked => {
+    return isChecked ? "✅" : "🙅‍";
+  }}
+>
+  <ListBox.Option>Punisher</ListBox.Option>
+  <ListBox.Option>Catwoman</ListBox.Option>
+  <ListBox.Option>Venom</ListBox.Option>
+</ListBox>
+```
+
+---

@@ -145,6 +145,9 @@ Code:
   </ListBox>
 </Playground>
 
+`renderTrigger` allows for a different render label for the trigger.
+Incorporating the `renderTrigger` prop into `<ListBox/>` can allow for custom buttons or other components to toggle the popover.
+
 Code:
 
 ```js
@@ -197,6 +200,10 @@ Code:
     </ListBox.Group>
   </ListBox>
 </Playground>
+
+To group options together, simply parent all `<ListBox.Option/>`
+with `<ListBox.Group>`. Add `groupId=""` and
+`label=""` prop to `<ListBox.Group>` to create the name of the group and its id.
 
 Code:
 
