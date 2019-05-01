@@ -91,6 +91,7 @@ export default function Option(props) {
         onClick={handleClickOption({ props, state, dispatch })}
       >
         <Checker
+          data-qa-anchor="listbox-checker"
           index={Number.parseInt(index, 10)}
           isChecked={isOptionSelected(state, index)}
           renderCheckbox={props.renderCheckbox || renderCheckbox}

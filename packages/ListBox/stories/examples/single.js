@@ -416,3 +416,18 @@ export const HasNoClearButton = () => (
     <ListBox.Option>Scarlet Witch</ListBox.Option>
   </ListBox>
 );
+
+// export const HasCustomFilter = () => (
+//   <ListBox hasFilter filter={}>
+//     <ListBox.Option>Punisher</ListBox.Option>
+//     <ListBox.Option>Catwoman</ListBox.Option>
+//     <ListBox.Option>Venom</ListBox.Option>
+//     <ListBox.Option>Thunderbolts</ListBox.Option>
+//     <ListBox.Option>Deadpool</ListBox.Option>
+//     <ListBox.Option>Spawn</ListBox.Option>
+//     <ListBox.Option>Wolverine</ListBox.Option>
+//     <ListBox.Option>Black Widow</ListBox.Option>
+//     <ListBox.Option>Hawkeye</ListBox.Option>
+//     <ListBox.Option>Scarlet Witch</ListBox.Option>
+//   </ListBox>
+// );
