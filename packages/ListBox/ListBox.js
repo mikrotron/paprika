@@ -13,7 +13,7 @@ import handleImperative from "./imperative";
 import * as effects from "./effects";
 
 export const propTypes = {
-  //works with isInline, isDisabled, hasSelectedOptions, going to be a clear button taht you cannot click
+  //works with isInline, isDisabled, hasSelectedOptions, going to be a clear button that you cannot click
 
   /** Child of type <ListBox.Option /> */
   children: PropTypes.node,

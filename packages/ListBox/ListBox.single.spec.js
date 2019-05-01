@@ -186,8 +186,7 @@ describe("Listbox single select", () => {
     dropdownIsNotHidden();
   });
 
-  // Ask about
-  // onClose not being used in listbox
+  // Ask about onClose not being used in listbox
   // it("calls onClose when Popover closes", () => {
   //   const onCloseListBox = jest.fn();
   //   const { getByTestId, debug, openSelect, selectVenus } = renderComponent({
@@ -195,8 +194,12 @@ describe("Listbox single select", () => {
   //   });
   //   openSelect();
   //   selectVenus();
-  //   expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
+  //   //expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
+  //   //openSelect();
+  //   //fireEvent.click(getByText(/jupiter/i));
+  //   //console.log("Howdy", onCloseListBox.mock);
   //   expect(onCloseListBox).toHaveBeenCalled();
+  //   //console.log("Hello", onCloseListBox.mock.calls.length);
   // });
 
   // onChange gets called on unmount - soo being called atleast once

@@ -318,6 +318,23 @@ export const WithCustomCheckers = () => (
   </ListBox>
 );
 
+export const HasSelectedOptionNotVisible = () => (
+  <ListBox
+    renderCheckbox={isChecked => {
+      return isChecked ? "✅" : "🙅‍";
+    }}
+    hideOptionOnSelected
+  >
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Thunderbolts</ListBox.Option>
+    <ListBox.Option>Deadpool</ListBox.Option>
+    <ListBox.Option>Spawn</ListBox.Option>
+    <ListBox.Option>Wolverine</ListBox.Option>
+  </ListBox>
+);
+
 export const WithGroups = () => (
   <ListBox>
     <ListBox.Group groupId="antiheroes" label="Anti-Heroes">
@@ -367,6 +384,7 @@ export const HasClearButtonDisabled = () => (
 export const HasOnCloseCallback = () => (
   <ListBox
     onClose={() => {
+      debugger;
       console.log("HasOnClose");
     }}
   >
