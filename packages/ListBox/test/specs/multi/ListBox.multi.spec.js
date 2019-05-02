@@ -2,13 +2,13 @@ import React from "react";
 import { configure } from "react-testing-library";
 
 import { render, fireEvent } from "react-testing-library";
-import ListBox from ".";
+import ListBox from "../../../";
 
 configure({ testIdAttribute: "data-qa-anchor" });
 
 function renderComponent(props = {}) {
   const rendered = render(
-    <ListBox {...props}>
+    <ListBox isMulti {...props}>
       <ListBox.Option>Venus</ListBox.Option>
       <ListBox.Option>Jupiter</ListBox.Option>
     </ListBox>
@@ -18,6 +18,9 @@ function renderComponent(props = {}) {
     ...rendered,
     openSelect: () => {
       fireEvent.click(rendered.getByTestId("trigger"));
+    },
+    closeSelect: () => {
+      fireEvent.click(rendered.getByText(/select one of/i));
     },
     selectVenus: () => {
       fireEvent.click(rendered.getByText(/venus/i));
@@ -34,9 +37,9 @@ function renderComponent(props = {}) {
   };
 }
 
-describe("Listbox single select", () => {
+describe("Listbox multi select", () => {
   it("dropdown should be hidden when first rendered", () => {
-    const { getByTestId, dropdownIsHidden } = renderComponent();
+    const { getByTestId, dropdownIsHidden, debug } = renderComponent();
     dropdownIsHidden();
   });
 
@@ -55,23 +58,27 @@ describe("Listbox single select", () => {
     expect(getByText(/jupiter/i)).toBeInTheDocument();
   });
 
-  it("dropdown should close when choosing option and show clear button", () => {
-    const { getByTestId, openSelect, selectVenus } = renderComponent();
+  it("popover should not close when selecting and show chosen options in trigger", () => {
+    const { getByTestId, dropdownIsNotHidden, openSelect, selectVenus, selectJupiter } = renderComponent();
 
     openSelect();
     selectVenus();
-    expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
-    expect(getByTestId("clear-button")).toBeVisible();
+    dropdownIsNotHidden();
+    selectJupiter();
+    expect(getByTestId("trigger")).toHaveTextContent(/venus, jupiter/i);
   });
 
-  it("should clear selected option when x is clicked", () => {
-    const { getByTestId, openSelect, selectVenus } = renderComponent();
+  it("should clear selected options when x is clicked", () => {
+    const { getByTestId, openSelect, selectVenus, selectJupiter } = renderComponent();
 
     openSelect();
     selectVenus();
+    selectJupiter();
+    expect(getByTestId("trigger")).toHaveTextContent(/venus, jupiter/i);
+    expect(getByTestId("clear-button")).toBeVisible();
     fireEvent.click(getByTestId("clear-button"));
     expect(getByTestId("clear-button")).not.toBeVisible();
-    expect(getByTestId("trigger")).not.toHaveTextContent(/venus/i);
+    expect(getByTestId("trigger")).not.toHaveTextContent(/venus, jupiter/i);
     expect(getByTestId("trigger")).toHaveTextContent(/select one of/i);
   });
 
@@ -84,42 +91,24 @@ describe("Listbox single select", () => {
     expect(getByTestId("list-filter")).toBeInTheDocument();
   });
 
-  // FAILS
-  // TypeError: state.refListBox.current.scrollTo is not a function
-  // it("should display filtered options by 'v' input", () => {
-  //   const { getByTestId, openSelect, debug } = renderComponent({
-  //     hasFilter: true,
-  //   });
-  //
-  //   openSelect();
-  //   expect(getByTestId("list-filter")).toBeInTheDocument();
-  //   fireEvent.change(getByTestId("list-filter-input"), { target: { value: "j" } });
-  //   expect(getByText(/venus/i)).toBeInTheDocument();
-  // });
+  it("should display message when filter input does not find a match", () => {
+    const { openSelect, getByTestId, getByText } = renderComponent({
+      hasFilter: true,
+      hasNotResultsMessage: "No match",
+    });
 
-  //FAILS clear button still renders and still visible
-  // it("should not render the 'x' clear button", () => {
-  //   const { getByTestId, queryByTestId, openSelect, selectVenus, debug } = renderComponent({
-  //     hasClearButton: false,
-  //   });
-  //
-  //   // openSelect();
-  //   // selectVenus();
-  //   //expect(getByTestId("clear-button")).not.toBeInTheDocument();
-  //   //expect(queryByTestId("clear-button")).toBeNull();
-  //   //expect(queryByTestId("clear-button")).not.toBeInTheDocument();
-  //   openSelect();
-  //   selectVenus();
-  //   debug();
-  //   expect(getByTestId("clear-button")).not.toBeVisible();
-  // });
+    openSelect();
+    fireEvent.change(getByTestId("list-filter-input"), { target: { value: "g" } });
+    expect(getByTestId("no-result-filter")).toBeInTheDocument();
+    expect(getByText("No match")).toBeInTheDocument();
+  });
 
   it("should have custom height of 500", () => {
     const { getByTestId } = renderComponent({
-      height: 500,
+      height: 600,
     });
 
-    expect(getByTestId("styled-list").getAttribute("height")).toMatch("500");
+    expect(getByTestId("styled-list").getAttribute("height")).toMatch("600");
   });
 
   it("should be disabled", () => {
@@ -155,18 +144,6 @@ describe("Listbox single select", () => {
     expect(document.activeElement).not.toBe(getByTestId("popover-content"));
   });
 
-  it("should display message when filter input does not find a match", () => {
-    const { openSelect, getByTestId, getByText } = renderComponent({
-      hasFilter: true,
-      hasNotResultsMessage: "No match",
-    });
-
-    openSelect();
-    fireEvent.change(getByTestId("list-filter-input"), { target: { value: "g" } });
-    expect(getByTestId("no-result-filter")).toBeInTheDocument();
-    expect(getByText("No match")).toBeInTheDocument();
-  });
-
   it("placeholder should display default label when no option is selected", () => {
     const { getByText } = renderComponent();
 
@@ -181,17 +158,6 @@ describe("Listbox single select", () => {
     expect(getByText("Choose an option!")).toBeInTheDocument();
   });
 
-  // zIndex not in render to get value of attribute
-  // it("should have custom zIndex of 999", () => {
-  //   const { getByText, getByTestId, debug } = renderComponent({
-  //     zIndex: 999,
-  //   });
-  //
-  //   expect(getByTestId("popover-zindex")).toBeInTheDocument();
-  //   //console.log("hey", getByTestId("popover-zindex").getAttribute("zIndex"));
-  //   //expect(getByTestId("popover-content").getAttribute("zIndex")).toBe(999);
-  // });
-
   it("should have popover open already ", () => {
     const { dropdownIsHidden, dropdownIsNotHidden, debug } = renderComponent({
       isPopoverOpen: true,
@@ -200,35 +166,17 @@ describe("Listbox single select", () => {
     dropdownIsNotHidden();
   });
 
-  // Ask about onClose not being used in listbox/ where is it being called
-  // it("calls onClose when Popover closes", () => {
-  //   const onCloseListBox = jest.fn();
-  //   const { getByTestId, debug, openSelect, selectVenus } = renderComponent({
-  //     onClose: onCloseListBox,
-  //   });
-  //   openSelect();
-  //   selectVenus();
-  //   //expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
-  //   //openSelect();
-  //   //fireEvent.click(getByText(/jupiter/i));
-  //   //console.log("Howdy", onCloseListBox.mock);
-  //   expect(onCloseListBox).toHaveBeenCalled();
-  //   //console.log("Hello", onCloseListBox.mock.calls.length);
-  // });
-
   // onChange gets called on unmount - soo being called atleast once before selecting any option.
   // value returned from selecting options is undefined
   it("calls onChange", () => {
     const onOptionClick = jest.fn();
-    const { openSelect, selectVenus, getByText } = renderComponent({
+    const { openSelect, selectVenus, selectJupiter, getByText } = renderComponent({
       onChange: onOptionClick,
     });
 
     openSelect();
     selectVenus();
-    openSelect();
-    fireEvent.click(getByText(/jupiter/i));
-    console.log("Helloo", onOptionClick.mock);
+    selectJupiter();
     expect(onOptionClick).toHaveBeenCalled();
   });
 
@@ -246,20 +194,6 @@ describe("Listbox single select", () => {
     expect(onClickClearTrigger).toHaveBeenCalled();
   });
 
-  // Ask about where is getting called/ same with ondeselected
-  // it("calls onSelected when an option is selected", () => {
-  //   const onSelectedOption = jest.fn();
-  //   const { openSelect, selectVenus, getByTestId } = renderComponent({
-  //     onSelected: onSelectedOption,
-  //   });
-  //
-  //   openSelect();
-  //   selectVenus();
-  //   expect(getByTestId("trigger")).toHaveTextContent(/venus/i);
-  //   console.log("Hi", onSelectedOption.mock);
-  //   expect(onSelectedOption).toHaveBeenCalled();
-  // });
-
   it("calls renderTrigger and changes the render method for label", () => {
     const onRenderTrig = jest.fn((state, dispatch, { getDOMAttributesForListBoxButton }) => (
       <button
@@ -273,7 +207,7 @@ describe("Listbox single select", () => {
         customTrigger
       </button>
     ));
-    const { dropdownIsNotHidden, selectVenus, getByText } = renderComponent({
+    const { dropdownIsNotHidden, selectVenus, selectJupiter, getByText } = renderComponent({
       renderTrigger: onRenderTrig,
     });
 
@@ -284,35 +218,73 @@ describe("Listbox single select", () => {
     expect(getByText(/venus/i)).toBeInTheDocument();
     expect(getByText(/jupiter/i)).toBeInTheDocument();
     selectVenus();
+    selectJupiter();
   });
 
   it("should have custom checkboxes", () => {
     const onRenderingCheckbox = jest.fn(isChecked => {
       return isChecked ? "✅" : "🙅‍";
     });
-    const { getByTestId, getByText, queryByText, openSelect, selectVenus, debug } = renderComponent({
+    const { getByTestId, getByText, queryByText, openSelect, selectVenus, selectJupiter } = renderComponent({
       renderCheckbox: onRenderingCheckbox,
     });
 
     expect(getByText(/🙅‍/i)).toBeInTheDocument();
     expect(queryByText(/✅/i)).not.toBeInTheDocument();
-    openSelect();
-    selectVenus();
-    expect(getByText(/✅/i)).toBeInTheDocument();
-    openSelect();
-    fireEvent.click(getByText(/jupiter/i));
-    expect(getByText(/🙅‍venus/i)).toBeInTheDocument();
-    expect(getByText(/✅jupiter/i)).toBeInTheDocument();
   });
 
-  // it("calls custom filter", () => {
-  //   const changeFilter = jest.fn();
-  //   const { openSelect, selectVenus } = renderComponent({
-  //     filter: changeFilter,
+  it("should have correct checkbox beside selected and non-selected options", () => {
+    const onRenderingCheckbox = jest.fn(isChecked => {
+      return isChecked ? "✅" : "🙅‍";
+    });
+    const { getByTestId, getByText, queryByText, openSelect, selectVenus, selectJupiter } = renderComponent({
+      renderCheckbox: onRenderingCheckbox,
+    });
+
+    openSelect();
+    selectVenus();
+    expect(getByText(/🙅‍jupiter/i)).toBeInTheDocument();
+    expect(getByText(/✅venus/i)).toBeInTheDocument();
+    selectJupiter();
+    expect(getByText(/✅jupiter/i)).toBeInTheDocument();
+    expect(getByText(/✅venus/i)).toBeInTheDocument();
+    fireEvent.click(getByText(/✅venus/i));
+    expect(getByText(/✅jupiter/i)).toBeInTheDocument();
+    expect(getByText(/🙅‍venus/i)).toBeInTheDocument();
+    fireEvent.click(getByText(/✅jupiter/i));
+    expect(getByText(/🙅‍jupiter/i)).toBeInTheDocument();
+    expect(getByText(/🙅‍venus/i)).toBeInTheDocument();
+  });
+
+  // FAILS
+  // TypeError: state.refListBox.current.scrollTo is not a function
+  // it("should display filtered options by 'v' input", () => {
+  //   const { getByTestId, openSelect, debug, getByText } = renderComponent({
+  //     hasFilter: true,
+  //   });
+  //
+  //   openSelect();
+  //   expect(getByTestId("list-filter")).toBeInTheDocument();
+  //   fireEvent.change(getByTestId("list-filter-input"), { target: { value: "j" } });
+  //   debug();
+  //   expect(getByText(/jupiter/i)).toBeInTheDocument();
+  // });
+
+  // FAILS, clear button is still visible
+  // it("should not render the 'x' clear button", () => {
+  // const { getByTestId, queryByTestId, openSelect, selectVenus, debug, selectJupiter } = renderComponent({
+  //     hasClearButton: false,
   //   });
   //
   //   // openSelect();
   //   // selectVenus();
-  //   expect(changeFilter).toHaveBeenCalled();
+  //   //expect(getByTestId("clear-button")).not.toBeInTheDocument();
+  //   //expect(queryByTestId("clear-button")).toBeNull();
+  //   //expect(queryByTestId("clear-button")).not.toBeInTheDocument();
+  //   openSelect();
+  //   selectVenus();
+  //   selectJupiter();
+  //   //debug();
+  //   expect(getByTestId("clear-button")).not.toBeVisible();
   // });
 });

@@ -39,7 +39,7 @@ export const propTypes = {
   /** Will display the listbox without the Popover */
   isInline: PropTypes.bool,
 
-  /** When true the ListBox will try to focus to the options container as soon as the
+  /** When true the ListBox will try to focus on the options container as soon as the
   Popover is open */
   isPopoverEager: PropTypes.bool,
 
@@ -60,9 +60,6 @@ export const propTypes = {
 
   /** Callback announcing which option has been marked as deselected */
   onDeselected: PropTypes.func,
-
-  /** Callback happening once the Popover has close */
-  onClose: PropTypes.func,
 
   /** Default label to display when no option is selected */
   placeholder: PropTypes.string,
