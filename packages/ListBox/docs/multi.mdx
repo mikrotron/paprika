@@ -70,7 +70,7 @@ To make the `<ListBox />` behave as a multi select, the developer needs to pass 
 
 ## Examples
 
-### Displaying ListBox with multi select and custom checkboxes:
+### Displaying ListBox with custom checkboxes:
 
 <Playground>
   <ListBox
@@ -90,7 +90,7 @@ To display custom checkboxes, add `renderCheckbox` with a function returning
 the type of checkbox to render depeneding on whether the user has selected
 the option or not.
 
-To display no checkboxes beside each option, return `null`, for example,
+To display no checkboxes beside each option, return `null`. For example,
 `renderCheckbox={()=>null}`.
 
 > Note: Custom check boxes also work in single select.

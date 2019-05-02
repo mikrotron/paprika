@@ -94,6 +94,7 @@ describe("Listbox single select", () => {
   //   // selectVenus();
   //   //expect(getByTestId("clear-button")).not.toBeInTheDocument();
   //   //expect(queryByTestId("clear-button")).toBeNull();
+  //   //expect(queryByTestId("clear-button")).not.toBeInTheDocument();
   //   openSelect();
   //   selectVenus();
   //   debug();

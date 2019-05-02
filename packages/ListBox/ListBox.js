@@ -36,14 +36,14 @@ export const propTypes = {
   /** Let the user to select multiple options at same time */
   isMulti: PropTypes.bool,
 
-  /** This options will display the listbox without the Popover */
+  /** Will display the listbox without the Popover */
   isInline: PropTypes.bool,
 
   /** When true the ListBox will try to focus to the options container as soon as the
   Popover is open */
   isPopoverEager: PropTypes.bool,
 
-  /** Indicates whether the Popover should be open already */
+  /** Set to true for the Popover to be open already */
   isPopoverOpen: PropTypes.bool,
 
   /** Message to be displayed once the filtering process doesn't find a match */
