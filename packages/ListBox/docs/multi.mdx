@@ -112,3 +112,34 @@ Code:
 ```
 
 ---
+
+### Displaying ListBox with hiding options after selecting:
+
+<Playground>
+  <ListBox isMulti hasOptionOnSelected getScrollContainer={() => document.querySelector("#root > div")}>
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>Catwoman</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+    <ListBox.Option>Hulk</ListBox.Option>
+    <ListBox.Option>Aquaman</ListBox.Option>
+  </ListBox>
+</Playground>
+
+With `hasOptionOnSelected` set to true, each option selected will
+not be visible in the dropdown.
+
+> Note: `hasOptionOnSelected` is best used in a multi select environment.
+
+Code:
+
+```js
+<ListBox isMulti hasOptionOnSelected>
+  <ListBox.Option>Punisher</ListBox.Option>
+  <ListBox.Option>Catwoman</ListBox.Option>
+  <ListBox.Option>Venom</ListBox.Option>
+  <ListBox.Option>Hulk</ListBox.Option>
+  <ListBox.Option>Aquaman</ListBox.Option>
+</ListBox>
+```
+
+---

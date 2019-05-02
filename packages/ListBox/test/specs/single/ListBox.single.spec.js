@@ -84,37 +84,6 @@ describe("Listbox single select", () => {
     expect(getByTestId("list-filter")).toBeInTheDocument();
   });
 
-  // FAILS
-  // TypeError: state.refListBox.current.scrollTo is not a function
-  // it("should display filtered options by 'v' input", () => {
-  //   const { getByTestId, openSelect, debug } = renderComponent({
-  //     hasFilter: true,
-  //   });
-  //
-  //   openSelect();
-  //   expect(getByTestId("list-filter")).toBeInTheDocument();
-  //   fireEvent.change(getByTestId("list-filter-input"), { target: { value: "j" } });
-  //   expect(getByText(/venus/i)).toBeInTheDocument();
-  // });
-
-  //FAILS
-  //clear button still renders and still visible
-  // it("should not render the 'x' clear button", () => {
-  //   const { getByTestId, queryByTestId, openSelect, selectVenus, debug } = renderComponent({
-  //     hasClearButton: false,
-  //   });
-  //
-  //   // openSelect();
-  //   // selectVenus();
-  //   //expect(getByTestId("clear-button")).not.toBeInTheDocument();
-  //   //expect(queryByTestId("clear-button")).toBeNull();
-  //   //expect(queryByTestId("clear-button")).not.toBeInTheDocument();
-  //   openSelect();
-  //   selectVenus();
-  //   debug();
-  //   expect(getByTestId("clear-button")).not.toBeVisible();
-  // });
-
   it("should have custom height of 500", () => {
     const { getByTestId } = renderComponent({
       height: 500,
@@ -268,4 +237,35 @@ describe("Listbox single select", () => {
     expect(getByText(/🙅‍venus/i)).toBeInTheDocument();
     expect(getByText(/✅jupiter/i)).toBeInTheDocument();
   });
+
+  // FAILS
+  // TypeError: state.refListBox.current.scrollTo is not a function
+  // it("should display filtered options by 'v' input", () => {
+  //   const { getByTestId, openSelect, debug } = renderComponent({
+  //     hasFilter: true,
+  //   });
+  //
+  //   openSelect();
+  //   expect(getByTestId("list-filter")).toBeInTheDocument();
+  //   fireEvent.change(getByTestId("list-filter-input"), { target: { value: "j" } });
+  //   expect(getByText(/venus/i)).toBeInTheDocument();
+  // });
+
+  //FAILS
+  //clear button still renders and still visible
+  // it("should not render the 'x' clear button", () => {
+  //   const { getByTestId, queryByTestId, openSelect, selectVenus, debug } = renderComponent({
+  //     hasClearButton: false,
+  //   });
+  //
+  //   // openSelect();
+  //   // selectVenus();
+  //   //expect(getByTestId("clear-button")).not.toBeInTheDocument();
+  //   //expect(queryByTestId("clear-button")).toBeNull();
+  //   //expect(queryByTestId("clear-button")).not.toBeInTheDocument();
+  //   openSelect();
+  //   selectVenus();
+  //   debug();
+  //   expect(getByTestId("clear-button")).not.toBeVisible();
+  // });
 });

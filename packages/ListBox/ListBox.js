@@ -13,8 +13,6 @@ import handleImperative from "./imperative";
 import * as effects from "./effects";
 
 export const propTypes = {
-  //works with isInline, isDisabled, hasSelectedOptions, going to be a clear button that you cannot click
-
   /** Child of type <ListBox.Option /> */
   children: PropTypes.node,
 
@@ -65,12 +63,10 @@ export const propTypes = {
   placeholder: PropTypes.string,
 
   /** [Advance] Override the 'scroll' target element for popover default is document.body  */
-  // Test on cypress
   getScrollContainer: PropTypes.func,
 
   /** [Advance] When composing the component will prevent to close the ListBox when
       the user interact with the Trigger container */
-  // Test on cypress
   preventOnBlurForTriggerListBox: PropTypes.bool,
 
   /** [Advance] Allows to take over the render method for the label inside of the Trigger Component */
