@@ -75,6 +75,11 @@ the developer to compose the ListBox like they would using the html element.
   </ListBox>
 </Playground>
 
+With `isInline` prop set to true the dropdown will be open indefinitely.
+Selecting an option will not close the dropdown. To have the dropdown open
+initially and close on selection, use the `isPopoverOpen` prop instead
+of `isInline`.
+
 Code:
 
 ```js
@@ -100,6 +105,11 @@ Code:
     <ListBox.Option>Wolverine</ListBox.Option>
   </ListBox>
 </Playground>
+
+The filter input displays inside the popover.
+
+To customize the message displayed when filter input returns no results,
+Include ListBox's `hasNotResultsMessage` prop followed by the custom message.
 
 Code:
 
@@ -145,7 +155,7 @@ Code:
   </ListBox>
 </Playground>
 
-`renderTrigger` allows for a different render label for the trigger.
+The `renderTrigger` prop allows for a different render label for the trigger.
 Incorporating the `renderTrigger` prop into `<ListBox/>` can allow for custom buttons or other components to toggle the popover.
 
 Code:
@@ -201,9 +211,9 @@ Code:
   </ListBox>
 </Playground>
 
-To group options together, simply parent all `<ListBox.Option/>`
-with `<ListBox.Group>`. Add `groupId=""` and
-`label=""` prop to `<ListBox.Group>` to create the name of the group and its id.
+To group options together, simply parent all the necessary `<ListBox.Option/>`
+with `<ListBox.Group>`. Add `groupId=""` and `label=""` prop
+to `<ListBox.Group>` to create the name of the group and its id.
 
 Code:
 
@@ -229,3 +239,52 @@ Code:
   </ListBox.Group>
 </ListBox>
 ```
+
+---
+
+### With ListBox disabled:
+
+<Playground>
+  <ListBox isDisabled>
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option>ProfessorX</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+  </ListBox>
+</Playground>
+
+This disables entire ListBox from being used.
+
+Code:
+
+```js
+<ListBox isDisabled>
+  <ListBox.Option>Punisher</ListBox.Option>
+  <ListBox.Option>ProfessorX</ListBox.Option>
+  <ListBox.Option>Venom</ListBox.Option>
+</ListBox>
+```
+
+To disable specific options in the dropdown, add `isDisabled`
+to each `<ListBox.Option/>` you want disabled.
+
+#### With ListBox.Option disabled:
+
+<Playground>
+  <ListBox>
+    <ListBox.Option>Punisher</ListBox.Option>
+    <ListBox.Option isDisabled>ProfessorX</ListBox.Option>
+    <ListBox.Option>Venom</ListBox.Option>
+  </ListBox>
+</Playground>
+
+Code:
+
+```js
+<ListBox>
+  <ListBox.Option>Punisher</ListBox.Option>
+  <ListBox.Option isDisabled>ProfessorX</ListBox.Option>
+  <ListBox.Option>Venom</ListBox.Option>
+</ListBox>
+```
+
+---

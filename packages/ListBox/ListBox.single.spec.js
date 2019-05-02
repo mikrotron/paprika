@@ -84,6 +84,19 @@ describe("Listbox single select", () => {
     expect(getByTestId("list-filter")).toBeInTheDocument();
   });
 
+  // FAILS
+  // TypeError: state.refListBox.current.scrollTo is not a function
+  // it("should display filtered options by 'v' input", () => {
+  //   const { getByTestId, openSelect, debug } = renderComponent({
+  //     hasFilter: true,
+  //   });
+  //
+  //   openSelect();
+  //   expect(getByTestId("list-filter")).toBeInTheDocument();
+  //   fireEvent.change(getByTestId("list-filter-input"), { target: { value: "j" } });
+  //   expect(getByText(/venus/i)).toBeInTheDocument();
+  // });
+
   //FAILS clear button still renders and still visible
   // it("should not render the 'x' clear button", () => {
   //   const { getByTestId, queryByTestId, openSelect, selectVenus, debug } = renderComponent({
@@ -168,16 +181,16 @@ describe("Listbox single select", () => {
     expect(getByText("Choose an option!")).toBeInTheDocument();
   });
 
-  it("should have custom zIndex of 999", () => {
-    const { getByText, getByTestId, debug } = renderComponent({
-      zIndex: 999,
-    });
-
-    expect(getByTestId("popover-zindex")).toBeInTheDocument();
-    debug();
-    //console.log("hey", getByTestId("popover-zindex").getAttribute("zIndex"));
-    //expect(getByTestId("popover-content").getAttribute("zIndex")).toBe(999);
-  });
+  // zIndex not in render to get value of attribute
+  // it("should have custom zIndex of 999", () => {
+  //   const { getByText, getByTestId, debug } = renderComponent({
+  //     zIndex: 999,
+  //   });
+  //
+  //   expect(getByTestId("popover-zindex")).toBeInTheDocument();
+  //   //console.log("hey", getByTestId("popover-zindex").getAttribute("zIndex"));
+  //   //expect(getByTestId("popover-content").getAttribute("zIndex")).toBe(999);
+  // });
 
   it("should have popover open already ", () => {
     const { dropdownIsHidden, dropdownIsNotHidden, debug } = renderComponent({
@@ -187,7 +200,7 @@ describe("Listbox single select", () => {
     dropdownIsNotHidden();
   });
 
-  // Ask about onClose not being used in listbox
+  // Ask about onClose not being used in listbox/ where is it being called
   // it("calls onClose when Popover closes", () => {
   //   const onCloseListBox = jest.fn();
   //   const { getByTestId, debug, openSelect, selectVenus } = renderComponent({
@@ -203,22 +216,23 @@ describe("Listbox single select", () => {
   //   //console.log("Hello", onCloseListBox.mock.calls.length);
   // });
 
-  // onChange gets called on unmount - soo being called atleast once
-  // before selecting any option
+  // onChange gets called on unmount - soo being called atleast once before selecting any option.
+  // value returned from selecting options is undefined
   it("calls onChange", () => {
     const onOptionClick = jest.fn();
-    const { openSelect, selectVenus } = renderComponent({
+    const { openSelect, selectVenus, getByText } = renderComponent({
       onChange: onOptionClick,
     });
 
     openSelect();
     selectVenus();
-    //console.log("Hello", onOptionClick.mock.calls.length);
+    openSelect();
+    fireEvent.click(getByText(/jupiter/i));
+    console.log("Helloo", onOptionClick.mock);
     expect(onOptionClick).toHaveBeenCalled();
   });
 
-  // onClickClear passes even when clear button is not shown on the UI
-  // after selecting an option from the popover
+  // onClickClear passes even when clear button is not shown on the UI after selecting an option from the popover.
   // Because of CSS the clear button is still present
   it("calls onClickClear event when clicking clear button", () => {
     const onClickClearTrigger = jest.fn();
@@ -232,7 +246,7 @@ describe("Listbox single select", () => {
     expect(onClickClearTrigger).toHaveBeenCalled();
   });
 
-  // Ask about
+  // Ask about where is getting called/ same with ondeselected
   // it("calls onSelected when an option is selected", () => {
   //   const onSelectedOption = jest.fn();
   //   const { openSelect, selectVenus, getByTestId } = renderComponent({
@@ -280,7 +294,6 @@ describe("Listbox single select", () => {
       renderCheckbox: onRenderingCheckbox,
     });
 
-    // expect(getByTestId("listbox-checker")).toBeVisible();
     expect(getByText(/🙅‍/i)).toBeInTheDocument();
     expect(queryByText(/✅/i)).not.toBeInTheDocument();
     openSelect();
