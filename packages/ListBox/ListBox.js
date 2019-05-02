@@ -78,8 +78,6 @@ export const propTypes = {
   renderCheckbox: PropTypes.func,
 
   /** Overrides the filter function and delegates the responsibility to the developer */
-  // will take over the original func that does filter, allows to do custom filter.
-  //return all the indexes that re male or females. hard code male - spiderman, females - wonder woman
   filter: PropTypes.func,
 
   /** z-index for the popover */
@@ -102,7 +100,6 @@ export const defaultProps = {
   isPopoverOpen: null,
   onChange: () => {},
   onClickClear: null,
-  onClose: () => {},
   onDeselected: () => {},
   onSelected: () => {},
   placeholder: "Select one of the options",

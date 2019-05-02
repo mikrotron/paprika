@@ -23,7 +23,6 @@ storiesOf("ListBox / single", module).add("Custom renderTrigger", () => <Single.
 storiesOf("ListBox / single", module).add("Has clear button", () => <Single.HasClearButton />);
 storiesOf("ListBox / single", module).add("Custom Checkers", () => <Single.WithCustomCheckers />);
 storiesOf("ListBox / single", module).add("Has Clear Button Disabled", () => <Single.HasClearButtonDisabled />);
-storiesOf("ListBox / single", module).add("Has onClose Callback", () => <Single.HasOnCloseCallback />);
 storiesOf("ListBox / single", module).add("Has onSelected Callback", () => <Single.HasOnSelected />);
 storiesOf("ListBox / single", module).add("Has no clear button ('x')", () => <Single.HasNoClearButton />);
 storiesOf("ListBox / single", module).add("Selected option becomes invisible", () => (

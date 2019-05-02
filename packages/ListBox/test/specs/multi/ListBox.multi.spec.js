@@ -39,7 +39,7 @@ function renderComponent(props = {}) {
 
 describe("Listbox multi select", () => {
   it("dropdown should be hidden when first rendered", () => {
-    const { getByTestId, dropdownIsHidden, debug } = renderComponent();
+    const { dropdownIsHidden } = renderComponent();
     dropdownIsHidden();
   });
 
@@ -51,7 +51,7 @@ describe("Listbox multi select", () => {
   });
 
   it("dropdown should have correct number of options", () => {
-    const { getByText, getByTestId, openSelect } = renderComponent();
+    const { getByText, openSelect } = renderComponent();
 
     openSelect();
     expect(getByText(/venus/i)).toBeInTheDocument();
@@ -112,7 +112,7 @@ describe("Listbox multi select", () => {
   });
 
   it("should be disabled", () => {
-    const { getByTestId, openSelect, dropdownIsHidden } = renderComponent({
+    const { openSelect, dropdownIsHidden } = renderComponent({
       isDisabled: true,
     });
 
@@ -159,7 +159,7 @@ describe("Listbox multi select", () => {
   });
 
   it("should have popover open already ", () => {
-    const { dropdownIsHidden, dropdownIsNotHidden, debug } = renderComponent({
+    const { dropdownIsNotHidden } = renderComponent({
       isPopoverOpen: true,
     });
 
@@ -170,7 +170,7 @@ describe("Listbox multi select", () => {
   // value returned from selecting options is undefined
   it("calls onChange", () => {
     const onOptionClick = jest.fn();
-    const { openSelect, selectVenus, selectJupiter, getByText } = renderComponent({
+    const { openSelect, selectVenus, selectJupiter } = renderComponent({
       onChange: onOptionClick,
     });
 
@@ -184,7 +184,7 @@ describe("Listbox multi select", () => {
   // Because of CSS the clear button is still present
   it("calls onClickClear event when clicking clear button", () => {
     const onClickClearTrigger = jest.fn();
-    const { getByTestId, openSelect, selectVenus, debug } = renderComponent({
+    const { getByTestId, openSelect, selectVenus } = renderComponent({
       onClickClear: onClickClearTrigger,
     });
 
@@ -225,7 +225,7 @@ describe("Listbox multi select", () => {
     const onRenderingCheckbox = jest.fn(isChecked => {
       return isChecked ? "✅" : "🙅‍";
     });
-    const { getByTestId, getByText, queryByText, openSelect, selectVenus, selectJupiter } = renderComponent({
+    const { getByText, queryByText } = renderComponent({
       renderCheckbox: onRenderingCheckbox,
     });
 
@@ -237,7 +237,7 @@ describe("Listbox multi select", () => {
     const onRenderingCheckbox = jest.fn(isChecked => {
       return isChecked ? "✅" : "🙅‍";
     });
-    const { getByTestId, getByText, queryByText, openSelect, selectVenus, selectJupiter } = renderComponent({
+    const { getByText, openSelect, selectVenus, selectJupiter } = renderComponent({
       renderCheckbox: onRenderingCheckbox,
     });
 

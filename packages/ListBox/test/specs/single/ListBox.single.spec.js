@@ -36,7 +36,7 @@ function renderComponent(props = {}) {
 
 describe("Listbox single select", () => {
   it("dropdown should be hidden when first rendered", () => {
-    const { getByTestId, dropdownIsHidden } = renderComponent();
+    const { dropdownIsHidden } = renderComponent();
     dropdownIsHidden();
   });
 
@@ -48,7 +48,7 @@ describe("Listbox single select", () => {
   });
 
   it("dropdown should have correct number of options", () => {
-    const { getByText, getByTestId, openSelect } = renderComponent();
+    const { getByText, openSelect } = renderComponent();
 
     openSelect();
     expect(getByText(/venus/i)).toBeInTheDocument();
@@ -93,7 +93,7 @@ describe("Listbox single select", () => {
   });
 
   it("should be disabled", () => {
-    const { getByTestId, openSelect, dropdownIsHidden } = renderComponent({
+    const { openSelect, dropdownIsHidden } = renderComponent({
       isDisabled: true,
     });
 
@@ -152,7 +152,7 @@ describe("Listbox single select", () => {
   });
 
   it("should have popover open already ", () => {
-    const { dropdownIsHidden, dropdownIsNotHidden, debug } = renderComponent({
+    const { dropdownIsNotHidden } = renderComponent({
       isPopoverOpen: true,
     });
 
@@ -183,7 +183,7 @@ describe("Listbox single select", () => {
   // Because of CSS the clear button is still present
   it("calls onClickClear event when clicking clear button", () => {
     const onClickClearTrigger = jest.fn();
-    const { getByTestId, openSelect, selectVenus, debug } = renderComponent({
+    const { getByTestId, openSelect, selectVenus } = renderComponent({
       onClickClear: onClickClearTrigger,
     });
 
@@ -223,7 +223,7 @@ describe("Listbox single select", () => {
     const onRenderingCheckbox = jest.fn(isChecked => {
       return isChecked ? "✅" : "🙅‍";
     });
-    const { getByTestId, getByText, queryByText, openSelect, selectVenus, debug } = renderComponent({
+    const { getByText, queryByText, openSelect, selectVenus } = renderComponent({
       renderCheckbox: onRenderingCheckbox,
     });
 
@@ -251,8 +251,8 @@ describe("Listbox single select", () => {
   //   expect(getByText(/venus/i)).toBeInTheDocument();
   // });
 
-  //FAILS
-  //clear button still renders and still visible
+  // FAILS
+  // clear button still renders and still visible
   // it("should not render the 'x' clear button", () => {
   //   const { getByTestId, queryByTestId, openSelect, selectVenus, debug } = renderComponent({
   //     hasClearButton: false,
