@@ -28,3 +28,4 @@ storiesOf("ListBox / single", module).add("Has no clear button ('x')", () => <Si
 storiesOf("ListBox / single", module).add("Selected option becomes invisible", () => (
   <Single.HasSelectedOptionNotVisible />
 ));
+storiesOf("ListBox / single", module).add("With hidden options", () => <Single.HasHiddenOption />);
