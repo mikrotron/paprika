@@ -15,7 +15,7 @@ import WithRef from "./examples/WithRef";
 storiesOf("Input", module)
   .addDecorator(withKnobs)
   .add("Showcase", ShowcaseStory)
-  .add("Sizes", () => <SizesStory />)
+  .add("HACK SIZES", () => <SizesStory />)
   .add("With content", () => <WithContentStory />)
   .add("With decorative icon", () => <WithIconStory />)
   .add("With isDisabled / isReadOnly", () => <WithDisabledReadOnlyStory />)

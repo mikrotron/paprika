@@ -53,17 +53,23 @@ const inputStyles = props => `
   // Sizes
 
   &.form-input--small input.form-input__input {
-    ${stylers.fontSize(-2)}
+    // ${stylers.fontSize(-2)}
+
+    ${stylers.fontSize(-1)}
     height: ${stylers.spacer(3)};
   }
 
   &.form-input--medium input.form-input__input {
-    ${stylers.fontSize(-1)}
+    // ${stylers.fontSize(-1)}
+
+    ${stylers.fontSize()}
     height: ${stylers.spacer(4)};
   }
 
   &.form-input--large input.form-input__input {
-    ${stylers.fontSize()}
+    // ${stylers.fontSize()}
+
+    ${stylers.fontSize(1)}
     height: ${stylers.spacer(5)};
   }
 

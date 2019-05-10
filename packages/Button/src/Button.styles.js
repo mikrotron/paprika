@@ -18,7 +18,7 @@ const commonStyles = `
   font-family: ${tokens.fontFamily.default};
   font-weight: bold;
   text-align: center;
-  vertical-align: middle;
+  vertical-align: top;
 
   &:focus {
     box-shadow: ${tokens.highlight.active.noBorder.boxShadow};
@@ -91,19 +91,31 @@ const activeStyles = `
 
 const sizeStyles = {
   small: `
-    ${stylers.fontSize(-2)};
+    // ${stylers.fontSize(-2)};
+    // padding: 3px ${tokens.space};
+
+    ${stylers.fontSize(-1)};
+
     min-height: ${stylers.spacer(3)};
-    padding: 3px ${tokens.space};
+    padding: 2.5px ${tokens.space};
   `,
   medium: `
-    ${stylers.fontSize(-1)};
+    // ${stylers.fontSize(-1)};
+    // font-size: 15px;
+    // padding: 6.5px ${tokens.spaceLg};
+    
+    ${stylers.fontSize()};
+    
     min-height: ${stylers.spacer(4)};
-    padding: 6.5px ${tokens.spaceLg};
+    padding: 4px ${tokens.spaceLg};
   `,
   large: `
-    ${stylers.fontSize()};
+    // ${stylers.fontSize()};
+    
+    ${stylers.fontSize(1)};
+
     min-height: ${stylers.spacer(5)};
-    padding: 9px ${stylers.spacer(2)};
+    padding: 8px ${stylers.spacer(2)};
   `,
 };
 

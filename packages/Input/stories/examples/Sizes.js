@@ -1,30 +1,38 @@
 import React from "react";
-import InputExample from "./InputExample";
+import Button from "@paprika/button";
+import Heading from "@paprika/heading";
+import { Rule, Gap, Small, Large, Subtle } from "storybook/assets/styles/common.styles";
 import { InputStory } from "../Input.stories.styles";
+import InputExample from "./InputExample";
 
 const SizesExampleStory = () => {
   return (
     <InputStory>
-      <h3>
-        <small>
-          <code>size = small</code>
-        </small>
-      </h3>
+      <Heading level={1} displayLevel={3}>
+        Hack Sizes
+      </Heading>
+      <Rule />
+      <Heading level={2} displayLevel={4}>
+        <code>size = small</code>
+      </Heading>
       <InputExample placeholder="First Name" size="small" />
-      <br />
-      <h3>
-        <small>
-          <code>size = medium</code> (default)
-        </small>
-      </h3>
+      <Button size="small">Action</Button>
+      <Small>Yatta!</Small>
+      <Gap />
+      <Heading level={2} displayLevel={4}>
+        <code>size = medium</code>
+        <Subtle>&nbsp;&nbsp;(default)</Subtle>
+      </Heading>
       <InputExample placeholder="First Name" />
-      <br />
-      <h3>
-        <small>
-          <code>size = large</code>
-        </small>
-      </h3>
+      <Button>Action</Button>
+      Yatta!
+      <Gap />
+      <Heading level={2} displayLevel={4}>
+        <code>size = large</code>
+      </Heading>
       <InputExample placeholder="First Name" size="large" />
+      <Button size="large">Action</Button>
+      <Large>Yatta!</Large>
     </InputStory>
   );
 };
