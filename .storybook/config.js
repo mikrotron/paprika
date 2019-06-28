@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { addParameters, addDecorator, load } from "@storybook/react";
-import { load } from "@storybook/react";
 import paprikaTheme from "./paprikaTheme";
 import { withA11y } from "@storybook/addon-a11y";
 
@@ -33,7 +32,7 @@ const meFirst = [
   ...meFirstCore,
 ];
 
-const req = require.context("../packages", true, /\.stories\.js$/);
+const req = require.context("../packages", true, /\.stories\.(js|mdx)$/);
 
 const stack = req.keys();
 const ordered = meFirst.flatMap(comp => stack.filter(filename => filename.match(comp)));

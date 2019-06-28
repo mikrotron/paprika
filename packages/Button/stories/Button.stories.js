@@ -11,13 +11,15 @@ import mdx from "./Button.stories.mdx";
 
 import Button from "../src";
 
+const docs = mdx && mdx.parameters && mdx.parameters.docs;
+
 storiesOf(" | Button", module)
-  .addParameters({ component: Button })
+  .addParameters({ docs, component: Button })
   .addDecorator(withKnobs)
-  .add("Showcase", Showcase, {
-    docs: mdx && mdx.parameters && mdx.parameters.docs,
-  })
-  .add("Basic", () => <Basic />)
+  .add("Showcase", Showcase)
+  .add("Variations", () => <Basic />);
+
+storiesOf(" | Button / Dev", module)
   .add("Ref", () => <NewRef />)
   .add("Old Ref", () => <OldRef />)
   .add("Button.Close Ref", () => <CloseButtonRef />);
