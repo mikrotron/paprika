@@ -13,6 +13,17 @@ module.exports = {
         test: /\.(jpe?g|png|gif|svg|eot|svg|ttf|woff|woff2)$/i,
         loader: "file-loader",
       },
+      {
+        test: /\.stories\.[tj]sx?$/,
+        use: [
+          {
+            loader: require.resolve('@storybook/source-loader'), 
+            options: { injectParameters: true },
+          }
+        ],
+        include: [path.resolve(__dirname, '../src')],
+        enforce: 'pre',
+      },
     ],
   },
   resolve: {

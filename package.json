@@ -69,6 +69,7 @@
     "@storybook/addon-notes": "^5.2.0-alpha.31",
     "@storybook/addons": "^5.2.0-alpha.31",
     "@storybook/react": "^5.2.0-alpha.31",
+    "@storybook/source-loader": "^5.2.0-alpha.31",
     "@testing-library/cypress": "^4.0.3",
     "babel-eslint": "^10.0.0",
     "babel-loader": "^8.0.5",

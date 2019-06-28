@@ -2536,6 +2536,21 @@
     memoizerific "^1.11.3"
     qs "^6.6.0"
 
+"@storybook/source-loader@^5.2.0-alpha.31":
+  version "5.2.0-alpha.31"
+  resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-5.2.0-alpha.31.tgz#0b6d21430c905adbc68d3405a4e858280e6c01a0"
+  integrity sha512-JeJrg/5yrkV3LKirdAUFh9Or1BovcLORbUhkB6n+pZW3M2F+yOdQK97dG4rqzWbVTy4IpZ0L3+6EPBkQckr17w==
+  dependencies:
+    "@storybook/addons" "5.2.0-alpha.31"
+    "@storybook/router" "5.2.0-alpha.31"
+    core-js "^3.0.1"
+    estraverse "^4.2.0"
+    global "^4.3.2"
+    loader-utils "^1.2.3"
+    prettier "^1.16.4"
+    prop-types "^15.7.2"
+    regenerator-runtime "^0.12.1"
+
 "@storybook/theming@5.2.0-alpha.31":
   version "5.2.0-alpha.31"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-5.2.0-alpha.31.tgz#60e67a7a42b854677ec599879d7f0640b4c6ac15"
