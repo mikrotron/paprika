@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Heading from '@paprika/heading';
+import React from "react";
+import PropTypes from "prop-types";
+import Heading from "@paprika/heading";
 import mdxHeaderStyles from "./MdxHeader.styles";
 
 const propTypes = {
@@ -12,7 +12,9 @@ const propTypes = {
 function MdxHeader(props) {
   return (
     <div css={mdxHeaderStyles}>
-      <Heading level={1} hasUnderline>{props.componentTitle}</Heading>
+      <Heading level={1} hasUnderline>
+        {props.componentTitle}
+      </Heading>
       <div className="mdx-header__meta">
         <div className="mdx-header__description">
           <p>{props.description}</p>
@@ -39,7 +41,9 @@ function MdxHeader(props) {
       <table>
         <tr>
           <td>Source code</td>
-          <td><a href={props.packageJson.repository.url}>Github</a></td>
+          <td>
+            <a href={props.packageJson.repository.url}>Github</a>
+          </td>
         </tr>
       </table>
     </div>

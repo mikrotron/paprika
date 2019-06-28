@@ -17,12 +17,12 @@ module.exports = {
         test: /\.stories\.[tj]sx?$/,
         use: [
           {
-            loader: require.resolve('@storybook/source-loader'), 
+            loader: require.resolve("@storybook/source-loader"),
             options: { injectParameters: true },
-          }
+          },
         ],
-        include: [path.resolve(__dirname, '../src')],
-        enforce: 'pre',
+        include: [path.resolve(__dirname, "../src")],
+        enforce: "pre",
       },
     ],
   },

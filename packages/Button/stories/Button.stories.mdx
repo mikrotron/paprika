@@ -1,15 +1,12 @@
-import { Story, Meta, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Story, Meta, Preview, Props } from "@storybook/addon-docs/blocks";
 import MdxHeader from "storybook/assets/documentation/MdxHeader/MdxHeader";
 import githubLogo from "./github-logo.png";
-import packageJson from '../package.json';
+import packageJson from "../package.json";
 import Button from "../src/Button";
 import Showcase from "./examples/Showcase";
 import Basic from "./examples/Basic";
 
-<Meta
-  title='Button'
-  parameters={{ options: { showPanel: false }}}
-/>
+<Meta title="Button" parameters={{ options: { showPanel: false } }} />
 
 <MdxHeader
   componentTitle="Button"
@@ -18,13 +15,16 @@ import Basic from "./examples/Basic";
 />
 
 <a href={packageJson.repository.url} target="_blank">
-  <img src={githubLogo}/>github link
+  <img src={githubLogo} />
+  github link
 </a>
 
 ## Props table
+
 <Props of={Button} />
 
 ## Stories
+
 <Preview>
   <Story name="hellllo">
     <Button>This is my button</Button>
