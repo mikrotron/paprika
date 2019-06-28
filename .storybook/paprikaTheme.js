@@ -1,5 +1,6 @@
 import { create } from "@storybook/theming";
-
+import logo from "./assets/paprika-logo.png";
 export default create({
-  brandTitle: "Paprika Storybook",
+  brandTitle: "",
+  brandImage: logo,
 });

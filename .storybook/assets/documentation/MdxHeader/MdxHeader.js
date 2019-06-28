@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Heading from "@paprika/heading";
 import mdxHeaderStyles from "./MdxHeader.styles";
+import githubLogo from "../../github-logo.png";
 
 const propTypes = {
   componentTitle: PropTypes.string,
@@ -37,11 +38,11 @@ function MdxHeader(props) {
         <Heading level={6}>Yarn</Heading>
         <code>yarn install @paprika/button</code>
       </div>
-
       <table>
         <tr>
           <td>Source code</td>
           <td>
+            <img src={githubLogo} css={"vertical-align:-0.1em; margin-right:4px;"} />
             <a href={props.packageJson.repository.url}>Github</a>
           </td>
         </tr>
