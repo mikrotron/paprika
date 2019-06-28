@@ -1,5 +1,6 @@
 import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import { boolean } from "@storybook/addon-knobs";
 
 const RenderShowCode = props => {
   const { children } = props;
@@ -21,7 +22,7 @@ const RenderShowCode = props => {
   return (
     <div>
       <div>{el}</div>
-      <div>
+      <div style={{ display: boolean("SHOW CODE", false) ? "block" : "none" }}>
         <SyntaxHighlighter language="javascript">{codeString}</SyntaxHighlighter>
       </div>
     </div>
