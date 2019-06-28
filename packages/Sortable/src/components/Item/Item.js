@@ -1,6 +1,9 @@
+/* eslint-disable react/no-unused-prop-types */
+
+import React from "react";
 import PropTypes from "prop-types";
 
-const Item = ({ children }) => children;
+const Item = ({ children }) => <React.Fragment>{children}</React.Fragment>;
 
 Item.displayName = "Sortable.Item";
 

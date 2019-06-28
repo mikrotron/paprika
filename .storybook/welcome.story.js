@@ -15,7 +15,7 @@ storiesOf(" | Welcome", module)
         <WelcomeBody>
           <Heading1>Paprika</Heading1>
           <Heading2>
-            robust <Bar>|</Bar> accessible <Bar>|</Bar> clear <Bar>|</Bar> delightful
+            Robust <Bar>|</Bar> Accessible <Bar>|</Bar> Clear <Bar>|</Bar> Delightful
           </Heading2>
         </WelcomeBody>
       </WelcomePage>
