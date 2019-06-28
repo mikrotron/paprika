@@ -45,7 +45,7 @@ storiesOf("Forms | Input", module)
         a11yText={text("a11yText", "")}
       />
     );
-    return <RenderShowCode show=>{el}</RenderShowCode>;
+    return <RenderShowCode>{el}</RenderShowCode>;
   })
   .add("Variations", ({ onChange, onClear, value }) => {
     const defaultProps = {
