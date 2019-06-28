@@ -8,9 +8,16 @@ import Item from "./components/Item/Item";
 import sortableStyles from "./Sortable.styles";
 
 const propTypes = {
+  /** Array of items to be sorted. Only <Sortable.Item> elements will be used. */
   children: PropTypes.node,
+
+  /** If a counter for each item will be displayed. */
   hasNumbers: PropTypes.bool,
+
+  /** A callback function invoked with the source and destination indexes when an item is dropped. */
   onChange: PropTypes.func.isRequired,
+
+  /** A callback function invoked with the index of the item removed. If omitted, no remove buttons are shown. */
   onRemove: PropTypes.func,
 };
 

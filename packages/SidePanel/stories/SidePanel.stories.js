@@ -123,18 +123,17 @@ const SidePanelStoryGroup = () => {
   );
 };
 
-storiesOf("SidePanel", module).add("Basic", () => <SidePanelStory />);
-storiesOf("SidePanel", module).add("Basic without overlay", () => (
-  <SidePanelStory disableBodyOverflow={false} hasOverlay={false} />
-));
-storiesOf("SidePanel", module).add("Multiple Sidepanels", () => <SidePanelStoryGroup />);
-storiesOf("SidePanel", module).add("Basic with body scrollable", () => (
-  <React.Fragment>
-    <TextLine repeat={100} />
-    <SidePanel disableBodyOverflow={false} onClose={() => {}} isOpen>
-      <SidePanel.Header>
-        <Heading level={2}>Child of Parent 2</Heading>
-      </SidePanel.Header>
-    </SidePanel>
-  </React.Fragment>
-));
+storiesOf(" | SidePanel", module)
+  .add("Basic", () => <SidePanelStory />)
+  .add("Basic without overlay", () => <SidePanelStory disableBodyOverflow={false} hasOverlay={false} />)
+  .add("Multiple Sidepanels", () => <SidePanelStoryGroup />)
+  .add("Basic with body scrollable", () => (
+    <React.Fragment>
+      <TextLine repeat={100} />
+      <SidePanel disableBodyOverflow={false} onClose={() => {}} isOpen>
+        <SidePanel.Header>
+          <Heading level={2}>Child of Parent 2</Heading>
+        </SidePanel.Header>
+      </SidePanel>
+    </React.Fragment>
+  ));

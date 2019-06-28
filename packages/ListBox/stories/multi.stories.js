@@ -2,14 +2,13 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import * as Multi from "./examples/multi";
 
-storiesOf("ListBox / multi", module).add("Basic", () => <Multi.Basic />);
-storiesOf("ListBox / multi", module).add("Basic with preselected options", () => <Multi.BasicWithPreselectedOptions />);
-storiesOf("ListBox / multi", module).add("Basic is disabled", () => <Multi.BasicIsDisabled />);
-storiesOf("ListBox / multi", module).add("Basic is disabled while open", () => <Multi.BasicIsDisabledWhileOpen />);
-storiesOf("ListBox / multi", module).add("With Custom Checkboxes", () => <Multi.WithCustomCheckboxes />);
-storiesOf("ListBox / multi", module).add("Footer", () => <Multi.Footer />);
-storiesOf("ListBox / multi", module).add("With Groups", () => <Multi.WithGroups />);
-storiesOf("ListBox / multi", module).add("With Filter", () => <Multi.WithFilter />);
-storiesOf("ListBox / multi", module).add("With Groups and have preselected options", () => (
-  <Multi.WithGroupsAndHavePreselectedOptions />
-));
+storiesOf("Forms | ListBox / multi", module)
+  .add("Basic", () => <Multi.Basic />)
+  .add("Basic with preselected options", () => <Multi.BasicWithPreselectedOptions />)
+  .add("Basic is disabled", () => <Multi.BasicIsDisabled />)
+  .add("Basic is disabled while open", () => <Multi.BasicIsDisabledWhileOpen />)
+  .add("With Custom Checkboxes", () => <Multi.WithCustomCheckboxes />)
+  .add("Footer", () => <Multi.Footer />)
+  .add("With Groups", () => <Multi.WithGroups />)
+  .add("With Filter", () => <Multi.WithFilter />)
+  .add("With Groups and have preselected options", () => <Multi.WithGroupsAndHavePreselectedOptions />);

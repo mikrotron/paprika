@@ -1,8 +1,8 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import Sortable from "../../src";
+import SortableComponent from "../../src";
 
-const Example = props => {
+const Sortable = props => {
   const { children: initChildren, ...knobProps } = props;
   const [children, setChildren] = React.useState(initChildren);
 
@@ -33,10 +33,13 @@ const Example = props => {
   };
 
   return (
-    <Sortable onChange={handleChange} onRemove={handleRemove} {...knobProps}>
+    <SortableComponent onChange={handleChange} onRemove={handleRemove} {...knobProps}>
       {children}
-    </Sortable>
+    </SortableComponent>
   );
 };
 
-export default Example;
+Sortable.propTypes = SortableComponent.propTypes;
+Sortable.defaultProps = SortableComponent.defaultProps;
+
+export default Sortable;

@@ -8,7 +8,7 @@ const shortContent = "Popover content";
 const longContent =
   "Lorem ipsum fixie raw denim scenester plaid sustainable lumbersexual, single-origin coffee. Live-edge yr tote bag vaporware slow-carb farm-to-table ethical af humblebrag.";
 
-storiesOf("Popover/Automation Tests/Screener", module).add("basic", () => (
+storiesOf(" | Popover/Automation Tests/Screener", module).add("basic", () => (
   <React.Fragment>
     <Popover isOpen>
       <Popover.Trigger>Open Popover</Popover.Trigger>

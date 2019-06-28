@@ -14,10 +14,10 @@ storiesOf("Forms | Select", module)
   .add("With isReadOnly", () => <Select.ReadOnlySelect />)
   .add("With hasError", () => <Select.hasErrorSelect />);
 
-storiesOf("Select/Automation Tests/Screener", module).add("Basic", () => {
+storiesOf("Forms | Select/Automation Tests/Screener", module).add("Basic", () => {
   return <ScreenerStory />;
 });
 
-storiesOf("Select/Automation Tests/Accessibility", module).add("Default", () => {
+storiesOf("Forms | Select/Automation Tests/Accessibility", module).add("Default", () => {
   return <A11yStory />;
 });

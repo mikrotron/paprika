@@ -1,10 +1,10 @@
 import React from "react";
-import { storiesOf } from "@storybook/react";
+import { storiesOf, addParameters } from "@storybook/react";
 import { WelcomePage, WelcomeBody, Heading1, Heading2, Bar } from "./welcome.story.styles";
 import readme from "../README.md";
 
 storiesOf(" | Welcome", module).add(
-  "→ Paprika",
+  "Paprika",
   () => (
     <WelcomePage>
       <WelcomeBody>
@@ -15,5 +15,5 @@ storiesOf(" | Welcome", module).add(
       </WelcomeBody>
     </WelcomePage>
   ),
-  { notes: { markdown: readme } }
+  { notes: readme }
 );

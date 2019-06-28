@@ -5,7 +5,7 @@ import L10n from "@paprika/l10n";
 import Example from "./DatePickerExample";
 import DatePicker from "../src/DatePicker";
 
-storiesOf("DatePicker", module)
+storiesOf("Forms | DatePicker", module)
   .add("DatePicker", () => <Example locale="en" />)
   .add("DatePicker with locale", () => <Example locale="ja" />)
   .add("DatePicker with initialDate", () => <Example initialDate={moment("2019-01-01")} />)

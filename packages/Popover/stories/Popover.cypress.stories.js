@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import windowHandles, { Input } from "../../../testingHelpers/src/windowHandles";
 import Popover from "../src";
 
-storiesOf("Popover/Automation Tests/Cypress", module)
+storiesOf(" | Popover/Automation Tests/Cypress", module)
   .addDecorator(
     windowHandles({
       align: new Input(),

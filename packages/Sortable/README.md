@@ -1,18 +1,20 @@
-## Sortable
+# Sortable
 
 The `<Sortable>` component creates a vertical list of items, that can be re-ordered with a mouse via dragging and dropping, or with the keyboard.
 
-### Installation
+## Installation
 
 `> npm install --save @paprika/sortable`
+
 or
+
 `> yarn add @paprika/sortable`
 
-### Usage
+## Usage
 
 For the most basic case, simply provide your items as `<Sortable.Item>` children.
 
-```js
+```jsx
 <Sortable onChange={changeHandler}>
   <Sortable.Item sortId="1">Item One</Sortable.Item>
   <Sortable.Item sortId="2">Item Two</Sortable.Item>
@@ -26,8 +28,8 @@ When an item is moved, the `onChange` callback is invoked with `result`:
 
 ```js
 {
-  source: 0,
-  destination: 2,
+  "source": 0,
+  "destination": 2
 }
 ```
 
@@ -37,14 +39,16 @@ For localized screen reader descriptions, use the `<L10n>` provider component ar
 
 Read more about the library used for this component, [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd).
 
-### Props
+## Props
+
+### Sortable
 
 - `children`
 - `hasNumbers`
 - `onChange` (Required)
 - `onRemove`
 
-#### Sortable.Item
+### Sortable.Item
 
 - `sortId` (Required)
 

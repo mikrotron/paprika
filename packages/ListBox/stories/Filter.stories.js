@@ -10,21 +10,21 @@ function renderOptions() {
   return options.map(option => <ListBox.Option key={option}>{option}</ListBox.Option>);
 }
 
-storiesOf("ListBox / ListBox.Filter", module).add("Basic Filter", () => (
+storiesOf("Forms | ListBox / ListBox.Filter", module).add("Basic Filter", () => (
   <ListBox>
     <ListBox.Filter key="filter" />
     {renderOptions()}
   </ListBox>
 ));
 
-storiesOf("ListBox / ListBox.Filter", module).add("Inline Filter", () => (
+storiesOf("Forms | ListBox / ListBox.Filter", module).add("Inline Filter", () => (
   <ListBox isInline>
     <ListBox.Filter key="filter" />
     {renderOptions()}
   </ListBox>
 ));
 
-storiesOf("ListBox / ListBox.Filter", module).add("Custom Filter", () => (
+storiesOf("Forms | ListBox / ListBox.Filter", module).add("Custom Filter", () => (
   <React.Fragment>
     <p style={{ padding: "10px" }}>
       Type <strong>O</strong> or <strong>P</strong> to filter specific options. P will filter indexes [1,4] and O will
@@ -54,7 +54,7 @@ storiesOf("ListBox / ListBox.Filter", module).add("Custom Filter", () => (
   </React.Fragment>
 ));
 
-storiesOf("ListBox / ListBox.Filter", module).add("Custom Children Filter", () => (
+storiesOf("Forms | ListBox / ListBox.Filter", module).add("Custom Children Filter", () => (
   <ListBox height={325}>
     <ListBox.Filter key="filter" />
     {images.map(image => (
@@ -67,14 +67,14 @@ storiesOf("ListBox / ListBox.Filter", module).add("Custom Children Filter", () =
   </ListBox>
 ));
 
-storiesOf("ListBox / ListBox.Filter", module).add("Multi Custom Children Filter", () => (
+storiesOf("Forms | ListBox / ListBox.Filter", module).add("Multi Custom Children Filter", () => (
   <ListBox isMulti height={325}>
     <ListBox.Filter key="filter" />
     {renderOptions()}
   </ListBox>
 ));
 
-storiesOf("ListBox / ListBox.Filter", module).add("Multi Inline Custom Children Filter", () => (
+storiesOf("Forms | ListBox / ListBox.Filter", module).add("Multi Inline Custom Children Filter", () => (
   <ListBox isMulti isInline height={325}>
     <ListBox.Filter key="filter" />
     {images.map(image => (

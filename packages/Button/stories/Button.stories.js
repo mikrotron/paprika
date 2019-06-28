@@ -8,8 +8,11 @@ import NewRef from "./examples/NewRef";
 import OldRef from "./examples/OldRef";
 import CloseButtonRef from "./examples/CloseButtonRef";
 
-storiesOf("Button", module)
+import Button from "../src";
+
+storiesOf(" | Button", module)
   .addDecorator(withKnobs)
+  .addParameters({ component: Button })
   .add("Showcase", Showcase)
   .add("Basic", () => <Basic />)
   .add("Ref", () => <NewRef />)

@@ -7,7 +7,6 @@ import SearchIcon from "@paprika/icon/lib/Search";
 import InfoIcon from "@paprika/icon/lib/InfoCircle";
 
 import Input from "../src";
-
 import InputStoryWrapper from "./assets/InputStoryWrapper";
 
 import SizesStory from "./examples/Sizes";
@@ -23,7 +22,7 @@ const iconSelections = {
   info: <InfoIcon />,
 };
 
-storiesOf("Forms|Input", module)
+storiesOf("Forms | Input", module)
   .addDecorator(withKnobs)
   .addDecorator(InputStoryWrapper)
   .add("Showcase", ({ onChange, onClear, value }) => (
@@ -70,9 +69,9 @@ storiesOf("Forms|Input", module)
     );
   });
 
-storiesOf("Forms|Input", module);
+storiesOf("Forms | Input", module);
 
-storiesOf("Forms|Input/Dev", module)
+storiesOf("Forms | Input/Dev", module)
   .addDecorator(withKnobs)
   .addDecorator(InputStoryWrapper)
   .add("Sizes", () => <SizesStory />)
@@ -82,10 +81,10 @@ storiesOf("Forms|Input/Dev", module)
   .add("Types", () => <TypesStory />)
   .add("With Ref", () => <WithRef />);
 
-storiesOf("Forms|Input/Dev/Automation Tests/Screener", module)
+storiesOf("Forms | Input/Dev/Automation Tests/Screener", module)
   .addDecorator(InputStoryWrapper)
   .add("InputExample", () => <Input placeholder="First Name" size="large" />);
 
-storiesOf("Forms|Input/Dev/Automation Tests/Accessibility", module)
+storiesOf("Forms | Input/Dev/Automation Tests/Accessibility", module)
   .addDecorator(InputStoryWrapper)
   .add("Default", () => <Input value="" onChange={() => {}} placeholder="First Name" size="large" />);
