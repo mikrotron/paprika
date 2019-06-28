@@ -5,7 +5,7 @@ import { Story } from "storybook/assets/styles/common.styles";
 import { ShirtSizes } from "@paprika/helpers/lib/customPropTypes";
 import Example from "./SwitchExample";
 
-storiesOf("Switch", module)
+storiesOf("Forms | Switch", module)
   .addDecorator(withKnobs)
   .add("Showcase", () => {
     return (

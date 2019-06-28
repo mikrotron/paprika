@@ -3,8 +3,12 @@ import PropTypes from "prop-types";
 const Item = ({ children }) => children;
 
 Item.displayName = "Sortable.Item";
+
 Item.propTypes = {
+  /** Content node for list item. */
   children: PropTypes.node.isRequired,
+
+  /** Unique, static ID for each item. */
   sortId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 

@@ -1,7 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { addParameters, configure, addDecorator } from "@storybook/react";
-import { DocsPage } from "@storybook/addon-docs/blocks";
+import { addParameters, addDecorator, load } from "@storybook/react";
 import paprikaTheme from "./paprikaTheme";
 import axeConfig from "./axeConfig";
 import { withA11y } from "@storybook/addon-a11y";
@@ -14,23 +12,30 @@ addParameters({
   options: {
     theme: paprikaTheme,
   },
-  docs: DocsPage,
 });
 
-// const axe = require("react-axe");
-// axe(React, ReactDOM, 10000, axeConfig);
-
-const meFirst = ["/Button/", "/RawButton/", "/Popover/", "/Stylers/"];
+const meFirstForms = ["/Input/", "/Select/", "/Textarea/", "/Switch/", "/DatePicker/", "/ListBox/"];
+const meFirstCore = ["/Stylers/", "/L10n/"];
+const meFirst = [
+  "/Spinner",
+  "/Button/",
+  "/RawButton/",
+  "/Icon/",
+  "/Heading/",
+  "/Popover/",
+  "/SidePanel/",
+  "/Sortable/",
+  ...meFirstForms,
+  ...meFirstCore,
+];
 
 const req = require.context("../packages", true, /\.stories\.(js|mdx)$/);
 const stack = req.keys();
-
 const ordered = meFirst.flatMap(comp => stack.filter(filename => filename.match(comp)));
 const rest = stack.filter(filename => !ordered.includes(filename));
 
 require("./welcome.story");
+ordered.forEach(filename => req(filename));
+rest.forEach(filename => req(filename));
 
-configure(() => {
-  ordered.forEach(filename => req(filename));
-  rest.forEach(filename => req(filename));
-}, module);
+load(req, module);

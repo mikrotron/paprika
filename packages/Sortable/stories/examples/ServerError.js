@@ -1,7 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Story } from "storybook/assets/styles/common.styles";
-import { storyStyles } from "../Sortable.stories.helpers";
 import Sortable from "../../src";
 
 const failStyles = `
@@ -12,6 +11,11 @@ const failStyles = `
   background: #fdd;
   padding: 2px 12px;
   font-size: 14px;
+`;
+
+const fakeServerStoryStyles = `
+  position: relative;
+  background: #f8f8f8;
 `;
 
 const fakeServerLatency = 1300;
@@ -60,7 +64,7 @@ const Example = () => {
     action("Items resorted")(formattedChildren(reorderedChildren));
 
     apiFaker = setTimeout(() => {
-      if (Math.random() > 0.5) {
+      if (Math.random() < 0.66) {
         setFailure(true);
         setChildren(fallbackChildren);
         action("❌ Items reverted")(formattedChildren(fallbackChildren));
@@ -71,7 +75,7 @@ const Example = () => {
   };
 
   return (
-    <Story css={storyStyles}>
+    <Story css={fakeServerStoryStyles}>
       {failure && (
         <div css={failStyles}>
           <span aria-hidden>❗️</span> Fake server error, please try again.

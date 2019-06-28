@@ -1,0 +1,55 @@
+import { Preview, Story, Meta, Description, Props } from "@storybook/addon-docs/blocks";
+import { MDXStory, Rule } from "../../../.storybook/assets/styles/common.styles";
+import Sortable_WithState from "./examples/Functional"
+import Sortable_FakeServerError from "./examples/ServerError"
+import Sortable from "../src";
+import Item from "../src/components/Item/Item";
+
+<Meta title='Sortable' />
+
+<MDXStory>
+
+# Sortable
+
+ |
+-|-
+version | **`0.1.0`**
+status | ★★★✩
+source | [**github**](https://github.com/acl-services/paprika/blob/master/packages/Sortable/src/)
+package | [**npm**](https://www.npmjs.com/package/@paprika/sortable)
+
+
+## Props
+
+#### `<Sortable />`
+<Props of={Sortable} />
+
+#### `<Sortable.Item />`
+<Props of={Item} />
+
+
+## Examples
+
+### Basic
+
+<Preview>
+<Story name="Example - Basic">
+<Sortable_WithState>
+  <Sortable.Item sortId="1">Item One</Sortable.Item>
+  <Sortable.Item sortId="2">Item Two</Sortable.Item>
+  <Sortable.Item sortId="3">Item Three</Sortable.Item>
+</Sortable_WithState>
+</Story>
+</Preview>
+
+### Server Error
+
+This component will update the UI optimistically, but in the event of an applicaion error while attempting to persist the updated state, the previous state should be reverted and an error message displayed to the user.
+
+<Story name="Example - Server Error">
+  <Sortable_FakeServerError />
+</Story>
+
+⇢ [**Source code**](https://github.com/acl-services/paprika/blob/master/packages/Sortable/stories/examples/ServerError.js)
+
+</MDXStory>

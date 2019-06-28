@@ -9,7 +9,7 @@ import PositioningElement from "./examples/PositioningElement";
 import ScrollContainer from "./examples/ScrollContainer";
 import Transformed from "./examples/Transformed";
 
-storiesOf("Popover", module)
+storiesOf(" | Popover", module)
   .addDecorator(withKnobs)
   .add("Basic", Basic)
   .add("Controlled", () => <Controlled />)
@@ -17,4 +17,4 @@ storiesOf("Popover", module)
   .add("With Positioning Element", PositioningElement)
   .add("With Scroll Container", ScrollContainer);
 
-storiesOf("Popover/Dev", module).add("Has container with a CSS transform", () => <Transformed />);
+storiesOf(" | Popover/Dev", module).add("Has container with a CSS transform", () => <Transformed />);

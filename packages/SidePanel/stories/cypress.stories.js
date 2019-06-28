@@ -4,7 +4,7 @@ import Heading from "@paprika/heading";
 import SidePanel from "../src";
 import { TextLine, Nav } from "./helpers";
 
-storiesOf("SidePanel / cypress", module).add("SidePanel Default Sticky", () => (
+storiesOf(" | SidePanel / cypress", module).add("SidePanel Default Sticky", () => (
   <React.Fragment>
     <Nav />
     <p>
@@ -20,7 +20,7 @@ storiesOf("SidePanel / cypress", module).add("SidePanel Default Sticky", () => (
   </React.Fragment>
 ));
 
-storiesOf("SidePanel / cypress", module).add("SidePanel Footer Sticky", () => (
+storiesOf(" | SidePanel / cypress", module).add("SidePanel Footer Sticky", () => (
   <React.Fragment>
     <Nav />
     <p>
@@ -66,4 +66,4 @@ const SidePanelOnAfter = () => {
   );
 };
 
-storiesOf("SidePanel / cypress", module).add("SidePanel onAfterOpen onAfterClose", () => <SidePanelOnAfter />);
+storiesOf(" | SidePanel / cypress", module).add("SidePanel onAfterOpen onAfterClose", () => <SidePanelOnAfter />);

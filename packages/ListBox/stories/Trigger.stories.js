@@ -21,17 +21,17 @@ function renderTrigger(state, dispatch, { propsForTrigger, types, refTrigger }) 
   );
 }
 
-storiesOf("ListBox / ListBox.Trigger", module).add("Basic Trigger with render props", () => (
-  <ListBox>
-    <ListBox.Trigger>{renderTrigger}</ListBox.Trigger>
-    {renderOptions()}
-  </ListBox>
-));
-
-storiesOf("ListBox / ListBox.Trigger", module).add("Trigger has not clear button", () => (
-  <ListBox isInline>
-    <ListBox.Trigger hasClearButton={false} />
-    <ListBox.Option isSelected>Loki</ListBox.Option>
-    {renderOptions()}
-  </ListBox>
-));
+storiesOf("Forms | ListBox / ListBox.Trigger", module)
+  .add("Basic Trigger with render props", () => (
+    <ListBox>
+      <ListBox.Trigger>{renderTrigger}</ListBox.Trigger>
+      {renderOptions()}
+    </ListBox>
+  ))
+  .add("Trigger has not clear button", () => (
+    <ListBox isInline>
+      <ListBox.Trigger hasClearButton={false} />
+      <ListBox.Option isSelected>Loki</ListBox.Option>
+      {renderOptions()}
+    </ListBox>
+  ));

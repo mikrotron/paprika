@@ -7,7 +7,7 @@ const Gap = styled.div`
   height: 200px;
 `;
 
-storiesOf("Popover/Automation Tests/Accessibility", module).add("Default", () => (
+storiesOf(" | Popover/Automation Tests/Accessibility", module).add("Default", () => (
   <React.Fragment>
     <Popover isOpen>
       <Popover.Trigger>Open Popover</Popover.Trigger>

@@ -5,6 +5,7 @@ import Input from "../../Input/stories/examples/InputExample";
 import Select from "../../Select/stories/examples/SelectExample";
 
 export const storyStyles = `
+  position: relative;
   max-width: 360px;
 `;
 

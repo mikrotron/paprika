@@ -12,6 +12,31 @@ export const Story = styled.div`
   }
 `;
 
+export const MDXStory = styled.div`
+  h1 {
+    font-weight: normal !important;
+    margin-top: 0 !important;
+  }
+
+  table {
+    margin-top: 0 !important;
+  }
+
+  th:empty {
+    visibility: hidden;
+  }
+
+  hr {
+    border: none;
+    border-bottom: 1px solid ${tokens.border.color} !important;
+    margin: ${stylers.spacer(4)} 0 !important;
+  }
+
+  [data-simplebar] {
+    font-weight: bold;
+  }
+`;
+
 export const CenteredStory = styled.div`
   ${stylers.alignMiddle}
   align-items: center;
