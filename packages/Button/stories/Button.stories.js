@@ -1,5 +1,5 @@
 import React from "react";
-import { storiesOf, addParameters } from "@storybook/react";
+import { storiesOf } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs";
 
 import Showcase from "./examples/Showcase";
