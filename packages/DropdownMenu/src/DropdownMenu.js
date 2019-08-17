@@ -62,6 +62,7 @@ const DropdownMenu = props => {
     // https://github.com/acl-services/paprika/issues/126
     return () =>
       React.cloneElement(triggerComponent, {
+        id: "popper",
         triggerRef,
         menuRefId: menuRefId.current,
       });

@@ -35,7 +35,7 @@ const Confirmation = props => {
 
   const I18n = useI18n();
   return (
-    <Popover defaultIsOpen onClose={onClose}>
+    <Popover defaultIsOpen onClose={onClose} getPositioningElement={() => document.getElementById("popper")} offset={4}>
       <Popover.Content>
         <div css={contentStyles}>
           <div css={ConfirmationStyles}>
