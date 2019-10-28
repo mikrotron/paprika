@@ -13,7 +13,7 @@ addParameters({
 });
 
 const axe = require("react-axe");
-axe(React, ReactDOM, 10000, axeConfig);
+// axe(React, ReactDOM, 10000, axeConfig);
 
 require("./welcome.story");
 

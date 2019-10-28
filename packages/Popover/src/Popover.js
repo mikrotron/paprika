@@ -207,6 +207,7 @@ class Popover extends React.Component {
 
     document.body.appendChild($shadowContent);
     const contentWidth = getBoundingClientRect($shadowContent).width;
+    // console.log("HOLLA", getBoundingClientRect($shadowContent));
     document.body.removeChild($shadowContent);
 
     return contentWidth;
@@ -215,6 +216,9 @@ class Popover extends React.Component {
   setVisibilityAndPosition(isOpening = false) {
     // dynamically setting a fixed width before positioning avoids issues at the
     // right edge of the screen
+
+    // console.log("LEMME", this.getContentWidth());
+
     if (isOpening && [AlignTypes.TOP, AlignTypes.BOTTOM].includes(this.props.align)) {
       const newWidth = this.getContentWidth();
       if (newWidth !== this.state.width) {
@@ -332,7 +336,9 @@ class Popover extends React.Component {
 
   handleChildChange = () => {
     if (this.$popover.current) {
-      this.setVisibilityAndPosition();
+      setTimeout(() => {
+        this.setVisibilityAndPosition();
+      });
     }
   };
 
@@ -452,10 +458,13 @@ class Popover extends React.Component {
 }
 
 function PopoverChildren(props) {
+  const { children, onChildChange } = props;
+
   React.useLayoutEffect(() => {
-    if (props.children) props.onChildChange();
-  }, [props.children]);
-  return props.children;
+    if (children) onChildChange();
+  }, [children]);
+
+  return children;
 }
 
 Popover.displayName = "Popover";

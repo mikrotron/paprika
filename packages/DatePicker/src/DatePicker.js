@@ -5,7 +5,9 @@ import momentPropTypes from "react-moment-proptypes";
 
 import CalendarIcon from "@paprika/icon/lib/Calendar";
 import Input from "@paprika/input";
-import Popover from "@paprika/popover";
+// import Popover from "@paprika/popover";
+import Popover from "../../Popover/src";
+
 import useI18n from "@paprika/l10n/lib/useI18n";
 import useDebounce from "@paprika/helpers/lib/hooks/useDebounce";
 import usePrevious from "@paprika/helpers/lib/hooks/usePrevious";
