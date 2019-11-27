@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import { ShirtSizes } from "@paprika/helpers/lib/customPropTypes";
 import CheckIcon from "@paprika/icon/lib/Check";
-import radioStyles from "./Radio.styles";
+import { radioStyles, radioIconStyles } from "./Radio.styles";
 import Group from "./components/Group";
 
 const propTypes = {
@@ -72,9 +72,23 @@ function Radio(props) {
         {children}
 
         {canDeselect ? (
-          <CheckIcon className="radio-icon" aria-hidden data-pka-anchor="radio.icon.check" />
+          <CheckIcon
+            isChecked={isChecked}
+            css={radioIconStyles}
+            size={size}
+            isDisabled={isDisabled}
+            aria-hidden
+            data-pka-anchor="radio.icon.check"
+          />
         ) : (
-          <div className="radio-icon radio-solid-background" data-pka-anchor="radio.icon.check" />
+          <div
+            css={radioIconStyles}
+            size={size}
+            isChecked={isChecked}
+            isDisabled={isDisabled}
+            isSolidBackground
+            data-pka-anchor="radio.icon.check"
+          />
         )}
       </label>
     </div>

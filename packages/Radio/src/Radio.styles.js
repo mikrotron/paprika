@@ -101,7 +101,7 @@ const styles = {
   },
 };
 
-const radioStyles = css`
+export const radioStyles = css`
   ${boxSizingStyles};
   ${({ size }) => styles[size].baseFontSize};
   line-height: ${({ hasLabel }) => (hasLabel ? lineHeightValue(-1) : "0")};
@@ -124,38 +124,19 @@ const radioStyles = css`
       position: relative;
     }
 
-    & + label::before,
-    & + label > .radio-icon {
-      position: absolute;
-      top: 0;
-    }
-
     & + label::before {
       background: ${tokens.color.white};
       border: 2px solid ${tokens.border.color};
       content: "";
       left: 0;
+      position: absolute;
+      top: 0;
       ${z(1)};
       ${({ size }) => styles[size].radioStyles};
     }
 
     & + label:hover::before {
       border: 2px solid ${tokens.color.black};
-    }
-
-    & + label > .radio-icon {
-      color: ${tokens.color.black};
-      ${({ size }) => styles[size].radioIconStyles};
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(-50%);
-      transition: opacity 0.15s ease-out;
-      ${z(2)};
-    }
-
-    & + label > .radio-solid-background {
-      background-color: ${tokens.color.black};
-      ${({ size }) => styles[size].radioIconBackgroundStyles};
     }
 
     &:checked {
@@ -173,11 +154,6 @@ const radioStyles = css`
 
     &:disabled {
       & + label,
-      & ~ .radio-icon {
-        cursor: not-allowed;
-        opacity: 0.5;
-        transition: none;
-      }
       &:checked {
         & + label:hover::before {
           border: 2px solid ${tokens.color.black};
@@ -193,4 +169,41 @@ const radioStyles = css`
   }
 `;
 
-export default radioStyles;
+export const radioIconStyles = css`
+  color: ${tokens.color.black};
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  transition: opacity 0.15s ease-out;
+  ${({ size }) => styles[size].radioIconStyles};
+  ${z(2)};
+
+  /* ${({ isChecked }) => {
+    if (isChecked) {
+      return {
+        opacity: 1,
+      };
+    }
+  }} */
+
+  ${({ isDisabled }) => {
+    if (isDisabled) {
+      return {
+        cursor: "not-allowed",
+        opacity: 0.5,
+        transition: "none",
+      };
+    }
+  }}
+
+  ${({ isSolidBackground, size }) => {
+    if (isSolidBackground) {
+      return {
+        backgroundColor: `${tokens.color.black}`,
+        ...styles[size].radioIconBackgroundStyles,
+      };
+    }
+  }}
+`;
