@@ -8,6 +8,7 @@ import "@paprika/helpers/lib/dom/elementScrollToPolyfill";
 import Cell from "../Cell";
 import Options from "../Options";
 import { CellHeader } from "../Cell/Cell.styles";
+import * as styled from "./VirtualizedTable.styles";
 import { useDataTableState } from "../../context";
 
 const propTypes = {
@@ -39,6 +40,7 @@ function getVisibleColumns(columns) {
   const visibleColumns = Object.keys(columns).filter(key => {
     return !columns[key].isHidden;
   });
+
   return visibleColumns;
 }
 
@@ -111,7 +113,7 @@ export default function VirtualizedTable(props) {
   }, [columnsOrder, visibleColumns]);
 
   return (
-    <div onKeyDown={handleKeyDown} tabIndex="0">
+    <div style={{ width: `${width}px` }} onKeyDown={handleKeyDown} tabIndex="0">
       <Grid
         columnCount={visibleColumns.length}
         columnWidth={columnIndex => {
@@ -129,8 +131,9 @@ export default function VirtualizedTable(props) {
         {propsReactWindow => {
           const { columnIndex, rowIndex, style } = propsReactWindow;
           const column = columns[visibleColumnsInCorrectOrder[columnIndex]];
-          const { id, cell, header } = column;
+          const { id, cell, header, hideGreyBorder = false } = column;
           const index = `${dataTableID}${rowIndex}_${columnIndex}`;
+
           if (rowIndex === 0) {
             return (
               <CellHeader key={`cell_${index}`} style={style}>
@@ -153,8 +156,13 @@ export default function VirtualizedTable(props) {
               style={style}
               refData={refData}
               data-pka-cell-index={`${rowIndex - 1}_${columnIndex}`}
+              hideGreyBorder={hideGreyBorder}
             >
-              {typeof cell === "function" ? cell(dataForRendering[rowIndex - 1]) : dataForRendering[rowIndex - 1][cell]}
+              <styled.InnerCell>
+                {typeof cell === "function"
+                  ? cell(dataForRendering[rowIndex - 1], rowIndex)
+                  : dataForRendering[rowIndex - 1][cell]}
+              </styled.InnerCell>
             </Cell>
           );
         }}

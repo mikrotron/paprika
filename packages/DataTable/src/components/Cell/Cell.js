@@ -13,7 +13,6 @@ const propTypes = {
   columnIndex: PropTypes.number.isRequired,
   refData: PropTypes.shape({ current: PropTypes.shape({}) }).isRequired,
   onClickCell: PropTypes.func,
-  refActivePage: PropTypes.shape({ current: PropTypes.shape({}) }).isRequired,
 };
 
 const defaultProps = {

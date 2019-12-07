@@ -1,11 +1,16 @@
 /* This will likely change color and tokens, I will wait until the UI mockup exists */
 import styled from "styled-components";
 
-export const Row = styled.div.attrs(({ $height, isHeaderRow = false }) => {
+export const Row = styled.div.attrs(({ $height, isHeaderRow = false, hideLeftColumn = false }) => {
   const style = {};
 
   if ($height) {
     style.height = isHeaderRow ? "32px" : `${$height}px`;
+  }
+
+  style.borderBottom = "1px solid red";
+  if (hideLeftColumn) {
+    style.borderBottom = "1px solid transparent";
   }
 
   return {
@@ -15,44 +20,16 @@ export const Row = styled.div.attrs(({ $height, isHeaderRow = false }) => {
   width: 100%;
   align-items: center;
   background: #fff;
-  border-bottom: 1px solid #dde1e3;
   display: flex;
 `;
 
-export const Counter = styled.div`
+export const InnerCell = styled.div`
   align-items: center;
   color: #4d4d4d;
   display: flex;
   flex-grow: 0;
   flex-shrink: 0;
-  font-size: 13px;
-  height: 100%;
-  width: 60px;
-`;
-
-export const Check = styled.div`
-  align-items: center;
-  display: flex;
-  height: 100%;
-  overflow: hidden;
-  padding-left: 8px;
-  position: relative;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 40px;
-
-  span {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-  }
-
-  input[type="checkbox"] {
-    left: -2px;
-    position: relative;
-  }
+  padding: 4px;
 `;
 
 export const Expand = styled.div`
