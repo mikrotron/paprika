@@ -1,29 +1,49 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Checkbox from "@paprika/checkbox";
 import * as styled from "./ColumnRowIndicator.styles";
 
 const propTypes = {
-  hasSelectableCheckbox: PropTypes.bool,
+  hasCheckbox: PropTypes.bool,
 };
 
 const defaultProps = {
-  hasSelectableCheckbox: true,
+  hasCheckbox: false,
 };
 
-function renderCellColumnRowIndicator(row, index) {
+const renderCell = ({ hasCheckbox, onChange }) => (row, index) => {
+  const [isCheckboxVisible, setIsCheckboxVisible] = React.useState(false);
+
+  function handleChange(event) {
+    onChange(row, index, event);
+  }
+
+  function handleMouseEnter() {
+    setIsCheckboxVisible(() => true);
+  }
+
+  function handleMouseLeave() {
+    setIsCheckboxVisible(() => false);
+  }
+
+  if (hasCheckbox) {
+    return (
+      <styled.Cell onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        {isCheckboxVisible ? <Checkbox onChange={handleChange} size="small" /> : index}
+      </styled.Cell>
+    );
+  }
   return <styled.Cell>{index}</styled.Cell>;
-}
+};
 
 function getCellProps(props) {
-  const { hasSelectableCheckbox } = props;
+  const { hasCheckbox, onChange } = props;
   return {
     id: "DataTable.ColumnRowIndicator",
     width: 40,
     header: "",
-    cell: renderCellColumnRowIndicator,
+    cell: renderCell({ hasCheckbox, onChange }),
     canHide: false,
-    customColumn: true,
-    hasSelectableCheckbox,
   };
 }
 

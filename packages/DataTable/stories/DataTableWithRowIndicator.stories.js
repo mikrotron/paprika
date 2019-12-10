@@ -9,7 +9,7 @@ function App() {
   return (
     <React.Fragment>
       <DataTable keygen="id" data={data} width={720} height={viewPortHeight()}>
-        <DataTable.ColumnRowIndicator />
+        <DataTable.ColumnRowIndicator hasCheckbox />
         <DataTable.ColumnDefinition id="country" header="Country" cell="country" />
         <DataTable.ColumnDefinition id="name" header="Name" cell="name" />
         <DataTable.ColumnDefinition id="goals" header="Goals" cell="goals" />

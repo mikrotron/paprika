@@ -55,7 +55,7 @@ export default function VirtualizedTable(props) {
     /* LoadMoreButton, */
     dataTableID,
   } = props;
-  // const [activeRowOnMouseEnter, setActiveRowOnMouseEnter] = React.useState({ index: null, data: null });
+
   const [activeCell, setActiveCell] = React.useState({ index: null });
   const refData = React.useRef(null);
   const refGrid = React.useRef(null);
@@ -69,13 +69,6 @@ export default function VirtualizedTable(props) {
   const dataForRendering = sortedOrder
     ? sortedOrder.map(keygenValue => data.find(item => item[keygen] === keygenValue))
     : data;
-
-  //
-  // const handleMouseEnter = (data, rowIndex, keys) => () => {
-  //   setActiveRowOnMouseEnter(() => ({ index: keys[rowIndex], data }));
-  // };
-
-  // const handleMouseLeave = (/* row, rowIndex */) => () => {};
 
   const rowHeightValue = (stateRowHeigth && stateRowHeigth.value) || rowHeight;
   const visibleColumns = getVisibleColumns(columns);

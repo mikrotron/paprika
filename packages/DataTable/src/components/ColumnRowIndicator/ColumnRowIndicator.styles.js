@@ -4,6 +4,7 @@ export const Cell = styled.div`
   color: #4d4d4d;
   font-size: 12px;
   padding: 2px;
+  width: 100%;
 `;
 
 export const Check = styled.div`
