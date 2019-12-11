@@ -124,7 +124,7 @@ export default function VirtualizedTable(props) {
         {propsReactWindow => {
           const { columnIndex, rowIndex, style } = propsReactWindow;
           const column = columns[visibleColumnsInCorrectOrder[columnIndex]];
-          const { id, cell, header, hideGreyBorder = false } = column;
+          const { id, cell, header, hideGreyBorder = false, ...moreProps } = column;
           const index = `${dataTableID}${rowIndex}_${columnIndex}`;
 
           if (rowIndex === 0) {
@@ -153,7 +153,7 @@ export default function VirtualizedTable(props) {
             >
               <styled.InnerCell>
                 {typeof cell === "function"
-                  ? cell(dataForRendering[rowIndex - 1], rowIndex)
+                  ? cell(dataForRendering[rowIndex - 1], rowIndex, moreProps)
                   : dataForRendering[rowIndex - 1][cell]}
               </styled.InnerCell>
             </Cell>

@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import nanoid from "nanoid";
 import ColumnDefinition from "./components/ColumnDefinition";
-import ColumnRowIndicator from "./components/ColumnRowIndicator";
+import RowIndicator from "./components/RowIndicator";
 import Navigation from "./components/Navigation";
 import VirtualizedTable from "./components/VirtualizedTable";
 import LoadMoreButton from "./components/LoadMoreButton";
@@ -55,20 +55,13 @@ export default function DataTable(props) {
     "DataTable.ColumnDefinition": ColumnsDefinition,
     "DataTable.Navigation": Navigation,
     "DataTable.LoadMoreButton": LoadMoreButton,
-    "DataTable.ColumnRowIndicator": ColumnRowIndicator,
   } = extractChildren(childrenProps, [
     "DataTable.ColumnDefinition",
     "DataTable.Navigation",
     "DataTable.LoadMoreButton",
-    "DataTable.ColumnRowIndicator",
   ]);
 
-  let columns = ColumnsDefinition.map(Column => Column.props);
-
-  if (ColumnRowIndicator) {
-    const columnRowIndicator = ColumnRowIndicator.type.getCellProps(ColumnRowIndicator.props);
-    columns = [columnRowIndicator].concat(columns);
-  }
+  const columns = ColumnsDefinition.map(Column => Column.props);
 
   let navigationReducers = [];
   if (Navigation && Navigation.props) {
@@ -99,8 +92,9 @@ export default function DataTable(props) {
 DataTable.prpoTypes = propTypes;
 DataTable.defaultProps = defaultProps;
 DataTable.ColumnDefinition = ColumnDefinition;
-DataTable.ColumnRowIndicator = ColumnRowIndicator;
+DataTable.RowIndicator = RowIndicator;
 DataTable.SortDirections = { ...sortDirections };
 DataTable.Navigation = Navigation;
 DataTable.ColumnTypes = columnTypes;
 DataTable.LoadMoreButton = LoadMoreButton;
+DataTable.RowIndicator = RowIndicator;
