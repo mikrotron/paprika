@@ -49,6 +49,8 @@ export default function DataTable(props) {
     reducers,
     rowHeight,
     width,
+    onRowSelected,
+    isRowSelected,
   } = props;
 
   const {
@@ -77,6 +79,8 @@ export default function DataTable(props) {
       <VirtualizedTable
         dataTableID={dataTableID}
         onExpandedRow={onExpandedRow}
+        onRowSelected={onRowSelected}
+        isRowSelected={isRowSelected}
         columns={columns}
         height={height}
         rowHeight={rowHeight}

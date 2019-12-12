@@ -53,6 +53,8 @@ export default function VirtualizedTable(props) {
     onKeyDownArrow,
     onClickCell,
     /* LoadMoreButton, */
+    isRowSelected,
+    onRowSelected,
     dataTableID,
   } = props;
 
@@ -153,7 +155,7 @@ export default function VirtualizedTable(props) {
             >
               <styled.InnerCell>
                 {typeof cell === "function"
-                  ? cell(dataForRendering[rowIndex - 1], rowIndex, moreProps)
+                  ? cell(dataForRendering[rowIndex - 1], rowIndex, { ...moreProps, isRowSelected, onRowSelected })
                   : dataForRendering[rowIndex - 1][cell]}
               </styled.InnerCell>
             </Cell>
