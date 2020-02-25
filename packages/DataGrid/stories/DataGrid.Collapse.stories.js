@@ -1,50 +1,22 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import * as Sbook from "storybook/assets/styles/common.styles";
-import ArrowRight from "@paprika/icon/lib/ArrowRight";
-import ArrowDown from "@paprika/icon/lib/ArrowDown";
-import Check from "@paprika/icon/lib/Check";
-import Popover from "@paprika/popover";
-import DataGrid from "../src";
+import ArrowRight from "wasabicons/lib/ArrowRight";
+import ArrowDown from "wasabicons/lib/ArrowDown";
+import MissionControl from "wasabicons/lib/MissionControl";
 import initialData from "./helpers/data.collapse";
+import DataGrid from "../src";
+
+import SignOffStatus from "./SignOffStatus";
 
 const Arrow = React.memo(({ hasRows, isExpand }) => {
   if (!hasRows) return null;
 
   if (hasRows && !isExpand) {
-    return <ArrowRight />;
+    return <ArrowRight style={{ marginRight: "8px", marginTop: "2px" }} />;
   }
 
-  return <ArrowDown />;
-});
-
-const Pill = React.memo(({ start, end }) => {
-  if (start === end) {
-    return (
-      <Popover isEager>
-        <Popover.Tip />
-        <Popover.Trigger>
-          <Check />
-        </Popover.Trigger>
-        <Popover.Content>
-          <Popover.Card>All sign-off in this section are complete</Popover.Card>
-        </Popover.Content>
-      </Popover>
-    );
-  }
-  if (start === 0) {
-    return (
-      <span css="text-align: center; padding:2px 6px; border-radius: 4px; background: #FAE7E3; color: #932B18; font-size: 12px;">
-        {start}/{end}
-      </span>
-    );
-  }
-
-  return (
-    <span css="text-align: center; padding:2px 6px; border-radius: 4px; background: #d7e9fb; color: #004A94; font-size: 12px;">
-      {start}/{end}
-    </span>
-  );
+  return <ArrowDown style={{ marginRight: "8px", marginTop: "2px" }} />;
 });
 
 const insert = (arr, index, newItems) => [
@@ -112,12 +84,16 @@ export function App() {
     console.log(expandedRows);
   }, [expandedRows]);
 
+  const leftCellStyle = React.useCallback(indent => {
+    return { style: { display: "flex", alignItems: "center", textIndent: `${indent * 24}px` } };
+  }, []);
+
   const cellStyle = React.useCallback(() => {
-    return { style: { display: "flex", justifyContent: "center" } };
+    return { style: { display: "flex", justifyContent: "center", alignItems: "center" } };
   }, []);
 
   const headerStyle = React.useCallback(() => {
-    return { style: { display: "flex", justifyContent: "center" } };
+    return { style: { display: "flex", justifyContent: "center", alignItems: "center", height: "32px" } };
   }, []);
 
   const cellA11yText = React.useCallback(key => {
@@ -135,31 +111,45 @@ export function App() {
 
   return (
     <Sbook.Story>
-      <DataGrid ref={refDataGrid} data={data} keygen="id" height={600} onPressEnter={toggleExpand}>
+      <DataGrid
+        ref={refDataGrid}
+        data={data}
+        keygen="id"
+        height={576}
+        onPressEnter={toggleExpand}
+        hasFooter={false}
+        rowHeight={48}
+      >
         <DataGrid.ColumnDefinition
           width={365}
           header="Objective"
+          headerProps={headerStyle}
           cell={({ row }) => {
             return (
               <span>
                 <Arrow hasRows={"rows" in row && row.rows.length} isExpand={expandedRows.includes(row.id)} />
-                {row.objective}
+                {row.link ? (
+                  <React.Fragment>
+                    <MissionControl style={{ position: "absolute", left: "8px" }} />
+                    <a href={row.link}>{row.objective}</a>
+                  </React.Fragment>
+                ) : (
+                  row.objective
+                )}
               </span>
             );
           }}
           cellA11yText={({ row }) => row.objective}
-          cellProps={({ row }) => {
-            return { style: { textIndent: `${row.indent * 16}px`, cursor: "pointer" } };
-          }}
+          cellProps={({ row }) => leftCellStyle(row.indent)}
           onClick={toggleExpand}
         />
         <DataGrid.ColumnDefinition
           width={156}
-          header="Paper review"
+          header="Preparer review"
           headerProps={headerStyle}
-          cellA11yText={cellA11yText("review")}
+          cellA11yText={cellA11yText("preparer")}
           cell={({ row }) => {
-            return <Pill start={row.review[0]} end={row.review[1]} />;
+            return <SignOffStatus numberOfSignOffs={row.preparer[0]} maxSignedOffs={row.preparer[1]} />;
           }}
           cellProps={cellStyle}
         />
@@ -168,7 +158,7 @@ export function App() {
           header="Detail review"
           headerProps={headerStyle}
           cellA11yText={cellA11yText("detail")}
-          cell={({ row }) => <Pill start={row.detail[0]} end={row.detail[1]} />}
+          cell={({ row }) => <SignOffStatus numberOfSignOffs={row.detail[0]} maxSignedOffs={row.detail[1]} />}
           cellProps={cellStyle}
         />
         <DataGrid.ColumnDefinition
@@ -176,7 +166,7 @@ export function App() {
           header="General review"
           headerProps={headerStyle}
           cellA11yText={cellA11yText("general")}
-          cell={({ row }) => <Pill start={row.general[0]} end={row.general[1]} />}
+          cell={({ row }) => <SignOffStatus numberOfSignOffs={row.general[0]} maxSignedOffs={row.general[1]} />}
           cellProps={cellStyle}
         />
       </DataGrid>

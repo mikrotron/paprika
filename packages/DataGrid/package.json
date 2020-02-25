@@ -26,7 +26,8 @@
     "mouse-wheel": "^1.2.0",
     "nanoid": "^2.1.9",
     "prop-types": "^15.7.2",
-    "react-window": "^1.8.5"
+    "react-window": "^1.8.5",
+    "wasabicons": "git+ssh://git@github.com/acl-services/wasabicons.git"
   },
   "peerDependencies": {
     "@paprika/l10n": "^0.3.9",

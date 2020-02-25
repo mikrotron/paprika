@@ -14,6 +14,7 @@ import InfinityScroll from "./components/InfinityScroll";
 const propTypes = {
   children: PropTypes.node.isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({})),
+  hasFooter: PropTypes.bool,
   height: PropTypes.number,
   onClick: PropTypes.func,
   onPressEnter: PropTypes.func,
@@ -27,6 +28,7 @@ const propTypes = {
 
 const defaultProps = {
   data: [],
+  hasFooter: true,
   height: 600,
   onClick: null,
   onPressEnter: null,
@@ -52,6 +54,7 @@ const DataGrid = React.forwardRef((props, ref) => {
   const {
     children,
     data,
+    hasFooter,
     height,
     onClick,
     onPressEnter,
@@ -599,11 +602,13 @@ const DataGrid = React.forwardRef((props, ref) => {
         <sc.FillerTopRight rowHeight={rowHeight} scrollBarWidth={scrollBarWidth} />
         <sc.FillerBottomLeft stickyGridWidth={stickyGridWidth} scrollBarWidth={scrollBarWidth} />
       </sc.Grid>
-      <sc.Footer $width={gridWidth}>
-        <sc.RowCount>
-          Rows:{rowCount} Columns:{columnCount}
-        </sc.RowCount>
-      </sc.Footer>
+      {hasFooter && (
+        <sc.Footer $width={gridWidth}>
+          <sc.RowCount>
+            Rows:{rowCount} Columns:{columnCount}
+          </sc.RowCount>
+        </sc.Footer>
+      )}
       {WhenScrollBarReachedBottom ? (
         <End width={gridWidth} ref={refEnd}>
           {WhenScrollBarReachedBottom}
