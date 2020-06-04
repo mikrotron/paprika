@@ -41,6 +41,9 @@ const stories = [
   // CodeViewer
   require.context("./components/CodeViewer", false, /CodeViewer.story.js/),
 
+  // Resizer
+  require.context("./components/Resizer", false, /Resizer.story.js/),
+
   // Card
   require.context("../packages/Card", true, /Card.stories.(js|mdx)$/),
 
