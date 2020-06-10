@@ -23,9 +23,8 @@ export const Grid = styled.div`
 
   background: ${tokens.color.white};
   border-top: 1px solid ${tokens.border.color};
-  max-width: ${({ $width }) => `${$width}px`};
-  /* max-width: ${({ isFullWidth, $width }) => (isFullWidth ? "100%" : `${$width}px`)}; */
   position: relative;
+  width: ${({ $width }) => `${$width}px`};
 
   ${({ gridId }) => {
     return css`
@@ -211,9 +210,5 @@ export const Footer = styled.div`
   box-sizing: border-box;
   font-size: 12px; /* custom value */
   padding: ${tokens.spaceSm};
-  ${({ $width }) => {
-    return `
-      max-width: ${$width + 1}px;
-  `;
-  }}
+  width: ${({ $width }) => `${$width}px`};
 `;

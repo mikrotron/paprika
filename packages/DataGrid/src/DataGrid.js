@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { VariableSizeGrid as Grid } from "react-window";
 import useI18n from "@paprika/l10n/lib/useI18n";
 import extractChildren from "@paprika/helpers/lib/extractChildren";
-import ResizeObserver from "../../ResizeObserver";
+import AutoSizer from "react-virtualized-auto-sizer";
 import Cell from "./components/Cell";
 import useGridEventHandler from "./hooks/useGridEventHandler";
 import ColumnDefinition from "./components/ColumnDefinition";
@@ -101,13 +101,12 @@ const DataGrid = React.forwardRef((props, ref) => {
     stop: null,
   });
   const refRemainingSpace = React.useRef(0);
-  const refTotalCanGrow = React.useRef(0);
+  const [totalCanGrow, setTotalCanGrow] = React.useState(0);
   const [gridShouldHaveFocus, setGridShouldHaveFocus] = React.useState(true);
   const [pageSize, setPageSize] = React.useState(null);
   const [gridWidth, setGridWidth] = React.useState(0);
   const [stickyGridWidth, setStickyGridWidth] = React.useState(0);
   const [scrollBarWidth, setScrollBarWidth] = React.useState(0);
-  const { width: parentWidth } = ResizeObserver.useObservedDimensions();
 
   const i18n = useI18n();
 
@@ -151,8 +150,8 @@ const DataGrid = React.forwardRef((props, ref) => {
       }
     });
     calculatedWidth += scrollBarWidth;
-    return parentWidth && parentWidth > calculatedWidth && refTotalCanGrow.current > 0 ? parentWidth : calculatedWidth;
-  }, [ColumnDefinitions, scrollBarWidth, parentWidth]);
+    return width && width > calculatedWidth && totalCanGrow > 0 ? width : calculatedWidth;
+  }, [ColumnDefinitions, scrollBarWidth, totalCanGrow, width]);
 
   const stickyColumnsIndexes = React.useMemo(
     () =>
@@ -173,9 +172,9 @@ const DataGrid = React.forwardRef((props, ref) => {
   }, [ColumnDefinitions, stickyColumnsIndexes]);
 
   React.useLayoutEffect(() => {
-    setGridWidth(width === null ? calculatedTableWidth() : width);
+    setGridWidth(calculatedTableWidth());
     setStickyGridWidth(getStickyGridWidth());
-  }, [calculatedTableWidth, getStickyGridWidth, parentWidth, width]);
+  }, [ColumnDefinitions, calculatedTableWidth, getStickyGridWidth, width]);
 
   const highlightRow = ({ rowIndex = null }) => {
     if (rowIndex !== null) {
@@ -462,16 +461,17 @@ const DataGrid = React.forwardRef((props, ref) => {
     }
 
     let totalColumnWidth = 0;
-    refTotalCanGrow.current = 0;
+    let totalGrowers = 0;
     ColumnDefinitions.forEach(columnDefinition => {
       totalColumnWidth += columnDefinition.props.width;
       if (columnDefinition.props.canGrow) {
-        refTotalCanGrow.current += 1;
+        totalGrowers += 1;
       }
     });
+    setTotalCanGrow(totalGrowers);
 
-    refRemainingSpace.current = parentWidth - totalColumnWidth - scrollBarWidth;
-  }, [parentWidth, ColumnDefinitions, scrollBarWidth]);
+    refRemainingSpace.current = width - totalColumnWidth - scrollBarWidth;
+  }, [ColumnDefinitions, scrollBarWidth, width]);
 
   const handleMouseOver = event => {
     highlightRow({ rowIndex: event.target.dataset.rowIndex });
@@ -486,12 +486,8 @@ const DataGrid = React.forwardRef((props, ref) => {
       return 0;
     }
 
-    if (
-      ColumnDefinitions[columnIndex].props.canGrow &&
-      refTotalCanGrow.current !== 0 &&
-      refRemainingSpace.current > 0
-    ) {
-      return ColumnDefinitions[columnIndex].props.width + refRemainingSpace.current / refTotalCanGrow.current;
+    if (ColumnDefinitions[columnIndex].props.canGrow && totalCanGrow !== 0 && refRemainingSpace.current > 0) {
+      return ColumnDefinitions[columnIndex].props.width + refRemainingSpace.current / totalCanGrow;
     }
 
     return ColumnDefinitions[columnIndex].props.width;
@@ -517,7 +513,6 @@ const DataGrid = React.forwardRef((props, ref) => {
         role="grid"
         tabIndex={gridShouldHaveFocus ? 0 : -1}
         $width={gridWidth}
-        isFullWidth={width === null && refTotalCanGrow.current > 0}
         {...moreProps}
       >
         <sc.Flex>
@@ -580,10 +575,9 @@ const DataGrid = React.forwardRef((props, ref) => {
             }}
           </Grid>
         </sc.Flex>
-
-        {/** STICKY COLUMNS */}
-
         <sc.Flex>
+          {/** STICKY COLUMNS */}
+
           <Grid
             className={`${gridId}-sticky-columns`}
             columnCount={stickyColumnsIndexes.length}
@@ -693,9 +687,9 @@ const DataGrid = React.forwardRef((props, ref) => {
 });
 
 const wrappedDataGrid = props => (
-  <ResizeObserver debounceDelay={80}>
-    <DataGrid {...props} />
-  </ResizeObserver>
+  <AutoSizer disableHeight className="autosizer">
+    {({ width }) => <DataGrid {...props} width={width} />}
+  </AutoSizer>
 );
 
 DataGrid.defaultProps = defaultProps;
