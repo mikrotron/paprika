@@ -512,7 +512,7 @@ const DataGrid = React.forwardRef((props, ref) => {
         ref={refContainer}
         role="grid"
         tabIndex={gridShouldHaveFocus ? 0 : -1}
-        $width={gridWidth}
+        $width={Math.min(gridWidth, width)}
         {...moreProps}
       >
         <sc.Flex>
