@@ -2,11 +2,7 @@ import styled, { css } from "styled-components";
 import tokens from "@paprika/tokens";
 import stylers from "@paprika/stylers";
 
-export const Grid = styled.div.attrs(({ $width }) => {
-  return {
-    style: { maxWidth: `${$width}px` },
-  };
-})`
+export const Grid = styled.div`
   * {
     box-sizing: border-box;
   }
@@ -25,8 +21,10 @@ export const Grid = styled.div.attrs(({ $width }) => {
     }
   }
 
-  border-top: 1px solid ${tokens.border.color};
   background: ${tokens.color.white};
+  border-top: 1px solid ${tokens.border.color};
+  max-width: ${({ $width }) => `${$width}px`};
+  /* max-width: ${({ isFullWidth, $width }) => (isFullWidth ? "100%" : `${$width}px`)}; */
   position: relative;
 
   ${({ gridId }) => {
