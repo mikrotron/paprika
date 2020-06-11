@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { VariableSizeGrid as Grid } from "react-window";
 import useI18n from "@paprika/l10n/lib/useI18n";
 import extractChildren from "@paprika/helpers/lib/extractChildren";
-import AutoSizer from "react-virtualized-auto-sizer";
 import Cell from "./components/Cell";
 import useGridEventHandler from "./hooks/useGridEventHandler";
 import ColumnDefinition from "./components/ColumnDefinition";
@@ -14,6 +13,7 @@ import InfiniteScroll from "./components/InfiniteScroll";
 const propTypes = {
   /** If the data cell should automatically get focus  */
   autofocus: PropTypes.bool,
+  /** An array of ColumnDefinition components is expected with an optional Basement / InfiniteScroll */
   children: PropTypes.node.isRequired,
   /** Add an alternate background on the DataGrid's rows */
   hasZebraStripes: PropTypes.bool,
@@ -31,6 +31,7 @@ const propTypes = {
   onPressShiftSpaceBar: PropTypes.func,
   /** Callback when Spacebar is pressed */
   onPressSpaceBar: PropTypes.func,
+  /** Callback when row checkbox is pressed */
   onRowChecked: PropTypes.func,
   /** Sets the row height */
   rowHeight: PropTypes.number,
@@ -96,18 +97,15 @@ const DataGrid = React.forwardRef((props, ref) => {
   const refCurrentPage = React.useRef(null);
   const refActiveRow = React.useRef(null);
   const refPrevActiveRow = React.useRef(null);
-  const refVisibleIndexes = React.useRef({
-    start: null,
-    stop: null,
-  });
+  const refVisibleIndexes = React.useRef({ start: null, stop: null });
   const refRemainingSpace = React.useRef(0);
+
   const [totalCanGrow, setTotalCanGrow] = React.useState(0);
   const [gridShouldHaveFocus, setGridShouldHaveFocus] = React.useState(true);
   const [pageSize, setPageSize] = React.useState(null);
   const [gridWidth, setGridWidth] = React.useState(0);
   const [stickyGridWidth, setStickyGridWidth] = React.useState(0);
   const [scrollBarWidth, setScrollBarWidth] = React.useState(0);
-
   const i18n = useI18n();
 
   // these two value are sensitive in Grids with lots of columns and can degradate performance alot.
@@ -346,8 +344,7 @@ const DataGrid = React.forwardRef((props, ref) => {
   }, []);
 
   function focusDataGrid() {
-    // this is required to readjust the active highlight
-    // after any rerender
+    // this is required to readjust the active highlight after any rerender
     if (
       refScrollGrid.current &&
       refPrevLastScrollHeight.current &&
@@ -497,6 +494,8 @@ const DataGrid = React.forwardRef((props, ref) => {
 
   focusDataGrid();
 
+  const containerWidth = width ? Math.min(gridWidth, width) : gridWidth;
+
   return (
     <>
       <sc.Grid
@@ -512,7 +511,7 @@ const DataGrid = React.forwardRef((props, ref) => {
         ref={refContainer}
         role="grid"
         tabIndex={gridShouldHaveFocus ? 0 : -1}
-        $width={Math.min(gridWidth, width)}
+        $width={containerWidth}
         {...moreProps}
       >
         <sc.Flex>
@@ -672,13 +671,13 @@ const DataGrid = React.forwardRef((props, ref) => {
         <sc.FillerTopRight rowHeight={rowHeight} scrollBarWidth={scrollBarWidth} />
         <sc.FillerBottomLeft stickyGridWidth={stickyGridWidth} scrollBarWidth={scrollBarWidth} />
       </sc.Grid>
-      <sc.Footer $width={gridWidth}>
+      <sc.Footer $width={containerWidth}>
         <sc.RowCount>
           Rows:{rowCount} Columns:{columnCount}
         </sc.RowCount>
       </sc.Footer>
       {Basement ? (
-        <End width={gridWidth} ref={refEnd}>
+        <End width={containerWidth} ref={refEnd}>
           {Basement}
         </End>
       ) : null}
@@ -686,16 +685,11 @@ const DataGrid = React.forwardRef((props, ref) => {
   );
 });
 
-const wrappedDataGrid = props => (
-  <AutoSizer disableHeight className="autosizer">
-    {({ width }) => <DataGrid {...props} width={width} />}
-  </AutoSizer>
-);
-
+DataGrid.displayName = "DataGrid";
 DataGrid.defaultProps = defaultProps;
 DataGrid.propTypes = propTypes;
-wrappedDataGrid.ColumnDefinition = ColumnDefinition;
-wrappedDataGrid.InfiniteScroll = InfiniteScroll;
-wrappedDataGrid.Basement = Basement;
+DataGrid.ColumnDefinition = ColumnDefinition;
+DataGrid.InfiniteScroll = InfiniteScroll;
+DataGrid.Basement = Basement;
 
-export default wrappedDataGrid;
+export default DataGrid;
