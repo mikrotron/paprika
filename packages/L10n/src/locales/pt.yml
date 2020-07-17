@@ -10,8 +10,10 @@ pt:
       drop_files: Solte os arquivos para carregar
       drop_files_here_or: Solte os arquivos para carregar aqui ou
       choose_from_computer: escolha no seu computador
+      choose_from_computer_a11y: Escolher arquivos no seu computador
       cancel_upload: Cancelar upload
       restart_upload: Reiniciar upload
+      file_list: Lista de arquivos
       errors:
         size: O arquivo deve ser menor que {{maxFileSize}}
         type: "O arquivo precisa ser de um dos seguintes tipos: {{- supportedTypes}}"
@@ -40,8 +42,9 @@ pt:
       confirm: Salvar
       decline: Recusar
     datePicker:
-      calendar_header_format: MMMM YYYY
       confirmation_format: ll
+    calendar:
+      header_format: MMMM YYYY
       month: Mês
       year: Ano
     daterange:
@@ -121,7 +124,7 @@ pt:
           is_not: não é
           contains: contém
           does_not_contain: não contém
-          is_blank: em branco
+          is_blank: está em branco
           is_not_blank: não está em branco
           equals: igual a
           not_equal_to: diferente de

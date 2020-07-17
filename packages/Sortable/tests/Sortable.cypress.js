@@ -1,4 +1,6 @@
-const baseStory = "sortable-automation-tests";
+import { getStoryUrlPrefix } from "../../../.storybook/storyTree";
+
+const baseStory = `${getStoryUrlPrefix("Sortable")}-backyard-tests`;
 const testStory = "cypress";
 
 const selector = {
