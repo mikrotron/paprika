@@ -7,9 +7,6 @@ import "@paprika/helpers/lib/dom/elementScrollToPolyfill";
 import nanoid from "nanoid";
 import types from "./types";
 import useGridEventHandler, { getGridRefId } from "./hooks/useGridEventHandler";
-
-import ResizeObserver from "../../ResizeDetector";
-
 import ColumnDefinition from "./components/ColumnDefinition";
 import * as sc from "./DataGrid.styles";
 import Basement, { End } from "./components/Basement";
@@ -118,13 +115,12 @@ const DataGrid = React.forwardRef((props, ref) => {
     stop: null,
   });
   const refRemainingSpace = React.useRef(0);
-  const refTotalCanGrow = React.useRef(0);
   const refPrevEventCellHighlighted = React.useRef({ columnIndex: null, rowIndex: null });
-  const [scrollBarWidth, setScrollBarWidth] = React.useState(getScrollbarWidth);
+  const [totalCanGrow, setTotalCanGrow] = React.useState(0);
   const [pageSize, setPageSize] = React.useState(null);
   const [gridWidth, setGridWidth] = React.useState(0);
   const [stickyGridWidth, setStickyGridWidth] = React.useState(0);
-  const { width: parentWidth } = ResizeObserver.useObservedDimensions();
+  const [scrollBarWidth, setScrollBarWidth] = React.useState(getScrollbarWidth);
 
   const i18n = useI18n();
 
@@ -169,8 +165,8 @@ const DataGrid = React.forwardRef((props, ref) => {
       }
     });
     calculatedWidth += scrollBarWidth;
-    return parentWidth && parentWidth > calculatedWidth && refTotalCanGrow.current > 0 ? parentWidth : calculatedWidth;
-  }, [ColumnDefinitions, scrollBarWidth, parentWidth]);
+    return width && width > calculatedWidth && totalCanGrow > 0 ? width : calculatedWidth;
+  }, [ColumnDefinitions, scrollBarWidth, totalCanGrow, width]);
 
   const stickyColumnsIndexes = React.useMemo(
     () =>
@@ -417,16 +413,29 @@ const DataGrid = React.forwardRef((props, ref) => {
     }
 
     let totalColumnWidth = 0;
-    refTotalCanGrow.current = 0;
+    let totalGrowers = 0;
     ColumnDefinitions.forEach(columnDefinition => {
       totalColumnWidth += columnDefinition.props.width;
       if (columnDefinition.props.canGrow) {
-        refTotalCanGrow.current += 1;
+        totalGrowers += 1;
       }
     });
+    setTotalCanGrow(totalGrowers);
 
-    refRemainingSpace.current = parentWidth - totalColumnWidth - scrollBarWidth;
-  }, [parentWidth, ColumnDefinitions, scrollBarWidth]);
+    refRemainingSpace.current = width - totalColumnWidth - scrollBarWidth;
+  }, [width, ColumnDefinitions, scrollBarWidth]);
+
+  const calculateColumnWidth = columnIndex => {
+    if (stickyColumnsIndexes.includes(columnIndex)) {
+      return 0;
+    }
+
+    if (ColumnDefinitions[columnIndex].props.canGrow && totalCanGrow !== 0 && refRemainingSpace.current > 0) {
+      return ColumnDefinitions[columnIndex].props.width + refRemainingSpace.current / totalCanGrow.current;
+    }
+
+    return ColumnDefinitions[columnIndex].props.width;
+  };
 
   const handleCellHighlighted = React.useCallback(
     event => {
@@ -474,22 +483,6 @@ const DataGrid = React.forwardRef((props, ref) => {
     };
   }, [handleCellHighlighted]);
 
-  const calculateColumnWidth = columnIndex => {
-    if (stickyColumnsIndexes.includes(columnIndex)) {
-      return 0;
-    }
-
-    if (
-      ColumnDefinitions[columnIndex].props.canGrow &&
-      refTotalCanGrow.current !== 0 &&
-      refRemainingSpace.current > 0
-    ) {
-      return ColumnDefinitions[columnIndex].props.width + refRemainingSpace.current / refTotalCanGrow.current;
-    }
-
-    return ColumnDefinitions[columnIndex].props.width;
-  };
-
   if (data.length === 0) return null;
 
   return (
@@ -506,8 +499,9 @@ const DataGrid = React.forwardRef((props, ref) => {
         role="grid"
         scrollBarWidth={scrollBarWidth}
         tabIndex={0}
-        $width={gridWidth}
-        isFullWidth={width === null && refTotalCanGrow.current > 0}
+        // $width={gridWidth}
+        $width={Math.min(gridWidth, width)}
+        isFullWidth={width === null && totalCanGrow > 0}
         {...moreProps}
       >
         <sc.Flex>
@@ -614,18 +608,11 @@ const DataGrid = React.forwardRef((props, ref) => {
   );
 });
 
-const wrappedDataGrid = props => (
-  <ResizeObserver debounceDelay={80}>
-    <DataGrid {...props} />
-  </ResizeObserver>
-);
-
 DataGrid.defaultProps = defaultProps;
 DataGrid.propTypes = propTypes;
 DataGrid.types = types;
+DataGrid.ColumnDefinition = ColumnDefinition;
+DataGrid.InfiniteScroll = InfiniteScroll;
+DataGrid.Basement = Basement;
 
-wrappedDataGrid.ColumnDefinition = ColumnDefinition;
-wrappedDataGrid.InfiniteScroll = InfiniteScroll;
-wrappedDataGrid.Basement = Basement;
-
-export default wrappedDataGrid;
+export default DataGrid;

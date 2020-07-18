@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import AutoSizer from "react-virtualized-auto-sizer";
-import ResizeObserver from "../../ResizeDetector";
+import ResizeDetector, { useDimensions } from "../../ResizeDetector"; // update to @paprika/resize-detector
 import DataGrid from "./DataGrid";
 import ColumnDefinition from "./components/ColumnDefinition";
 import Basement from "./components/Basement";
@@ -20,12 +20,12 @@ const defaultProps = {
 delete defaultProps.width;
 
 function DataGridWithProvider(props) {
-  const { width } = ResizeObserver.useObservedDimensions();
+  const { width } = useDimensions();
 
   return <DataGrid {...props} width={width} />;
 }
 
-function DataGridFullWidth(props) {
+function DataGridFluid(props) {
   const { debounceDelay, ...dataGridProps } = props;
 
   if (debounceDelay === null) {
@@ -37,17 +37,17 @@ function DataGridFullWidth(props) {
   }
 
   return (
-    <ResizeObserver debounceDelay={debounceDelay} data-pka-anchor="data-grid.container">
+    <ResizeDetector debounceDelay={debounceDelay} data-pka-anchor="data-grid.container">
       <DataGridWithProvider {...dataGridProps} />
-    </ResizeObserver>
+    </ResizeDetector>
   );
 }
 
-DataGridFullWidth.displayName = "DataGrid.FullWidth";
-DataGridFullWidth.propTypes = propTypes;
-DataGridFullWidth.defaultProps = defaultProps;
-DataGridFullWidth.ColumnDefinition = ColumnDefinition;
-DataGridFullWidth.InfiniteScroll = InfiniteScroll;
-DataGridFullWidth.Basement = Basement;
+DataGridFluid.displayName = "DataGrid.FullWidth";
+DataGridFluid.propTypes = propTypes;
+DataGridFluid.defaultProps = defaultProps;
+DataGridFluid.ColumnDefinition = ColumnDefinition;
+DataGridFluid.InfiniteScroll = InfiniteScroll;
+DataGridFluid.Basement = Basement;
 
-export default DataGridFullWidth;
+export default DataGridFluid;

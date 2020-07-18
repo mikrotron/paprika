@@ -2,10 +2,13 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import * as Sbook from "storybook/assets/styles/common.styles";
 import Resizer from "storybook/components/Resizer";
+import { getStoryName } from "storybook/storyTree";
 import Heading from "@paprika/heading";
 import ActionBar, { ColumnsArrangement, useColumnsArrangement } from "../../ActionBar/src";
-import { DataGridFullWidth } from "../src";
+import { DataGridFluid } from "../src";
 import fixtures from "./helpers/fixtures";
+
+const storyName = getStoryName("DataGrid");
 
 const data = fixtures(10);
 
@@ -48,11 +51,11 @@ function App({ debounceDelay }) {
             <ColumnsArrangement.ColumnDefinition id="status" label="Status" isHidden={isColumnHidden("status")} />
           </ColumnsArrangement>
         </ActionBar>
-        <DataGridFullWidth key={orderedColumnIds.join("-")} data={data} debounceDelay={debounceDelay} height={400}>
+        <DataGridFluid key={orderedColumnIds.join("-")} data={data} debounceDelay={debounceDelay} height={400}>
           {orderedColumnIds.map(
             columnKey =>
               !isColumnHidden(columnKey) && (
-                <DataGridFullWidth.ColumnDefinition
+                <DataGridFluid.ColumnDefinition
                   cell={renderColumns(columnKey).cell}
                   header={renderColumns(columnKey).header}
                   canGrow={renderColumns(columnKey).canGrow}
@@ -60,13 +63,13 @@ function App({ debounceDelay }) {
                 />
               )
           )}
-        </DataGridFullWidth>
+        </DataGridFluid>
       </Resizer>
     </Sbook.Story>
   );
 }
 
-storiesOf("DataGrid / resize", module)
+storiesOf(`${storyName}/Examples`, module)
   .addParameters({ options: { showPanel: false } })
-  .add("Resize with debounce", () => <App debounceDelay={30} />)
-  .add("Resize without debounce", () => <App />);
+  .add("Fluid resize with debounce", () => <App debounceDelay={30} />)
+  .add("Fluid resize without debounce", () => <App />);
