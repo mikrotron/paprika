@@ -112,7 +112,7 @@
     "stylelint-processor-styled-components": "^1.9.0",
     "typescript": "^4.0.2",
     "uuid": "^7.0.2",
-    "verdaccio": "^3.11.6",
+    "verdaccio": "^4.8.1",
     "wait-on": "^3.2.0",
     "workerize-loader": "^1.1.0"
   },
