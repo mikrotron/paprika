@@ -7,6 +7,7 @@ addDecorator(withA11y);
 addDecorator(withCssResources);
 
 addParameters({
+  controls: { expanded: true },
   previewTabs: {
     canvas: { hidden: true },
   },

@@ -1,7 +1,6 @@
-import { withKnobs } from "@storybook/addon-knobs";
 import { getStoryName } from "storybook/storyTree";
 import { showcaseStoryParameters, variationsStoryParameters } from "storybook/assets/storyParameters";
-import ShowcaseStory from "./examples/Showcase";
+import { ShowcaseStory } from "./examples/Showcase";
 import Variations from "./variations/Variations";
 import Button from "../src";
 
@@ -15,7 +14,10 @@ export default {
 export const showcase = ShowcaseStory;
 showcase.story = {
   name: "Showcase",
-  decorators: [withKnobs],
+  argTypes: {
+    children: { control: "text" },
+    kind: { control: "select" },
+  },
   parameters: showcaseStoryParameters,
 };
 

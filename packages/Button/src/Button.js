@@ -152,13 +152,13 @@ const propTypes = {
 
   /** The visual style of the button. */
   kind: PropTypes.oneOf([
-    Button.types.kind.DEFAULT,
-    Button.types.kind.PRIMARY,
-    Button.types.kind.SECONDARY,
-    Button.types.kind.DESTRUCTIVE,
-    Button.types.kind.FLAT,
-    Button.types.kind.MINOR,
-    Button.types.kind.LINK,
+    // Button.types.kind.DEFAULT,
+    // Button.types.kind.PRIMARY,
+    // Button.types.kind.SECONDARY,
+    // Button.types.kind.DESTRUCTIVE,
+    // Button.types.kind.FLAT,
+    // Button.types.kind.MINOR,
+    // Button.types.kind.LINK,
   ]),
 
   /** Callback to be executed when the button is clicked or activated by keyboard. Typically required. */
