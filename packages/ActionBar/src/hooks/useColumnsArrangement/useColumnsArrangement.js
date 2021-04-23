@@ -38,7 +38,11 @@ export default function useColumnsArrangement({
   localStoragePrefix = null,
 }) {
   const isLocalStorageEnabled = localStoragePrefix !== null;
-  const [order, setOrder] = React.useState(defaultOrder);
+  const [order, setOrder] = React.useState(() =>
+    isLocalStorageEnabled
+      ? getColumnIdsfromLocalStorage(getLocalStorageKey(localStoragePrefix, savedItem.ORDERS), defaultOrder)
+      : defaultOrder
+  );
   const [hiddenColumnIds, setHiddenColumnIds] = React.useState(() =>
     isLocalStorageEnabled
       ? new Set(
@@ -76,6 +80,10 @@ export default function useColumnsArrangement({
       produce(draftOrder => {
         const movedChild = draftOrder.splice(source, 1);
         draftOrder.splice(destination, 0, ...movedChild);
+
+        if (isLocalStorageEnabled) {
+          localStorage.setItem(getLocalStorageKey(localStoragePrefix, savedItem.ORDERS), JSON.stringify(draftOrder));
+        }
       })
     );
   }
