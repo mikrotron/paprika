@@ -16,6 +16,7 @@
     "@paprika/stylers": "^1.0.0",
     "@paprika/toast": "^1.1.4",
     "@paprika/tokens": "^1.0.0",
+    "@paprika/themes": "^0.1.0",
     "lodash.isequal": "^4.5.0",
     "prop-types": "15.7.2",
     "uuid": "^8.3.2"

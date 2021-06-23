@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { theme } from "@paprika/themes";
 import tokens from "@paprika/tokens";
 import stylers from "@paprika/stylers";
 import * as types from "../../types";
@@ -44,19 +45,22 @@ const stateStyles = ({ isSelected, hasPreventDefaultOnSelect }) => css`
 `;
 
 export const Option = styled.li(
-  ({ size, isDisabled, isSelected }) => css`
-    border: 2px solid transparent;
-    border-radius: 3px;
-    cursor: pointer;
-    margin-bottom: ${tokens.spaceSm};
-    padding: ${tokens.spaceSm};
-    ${fontSize[size]}
+  theme(
+    "ListBox.Option",
+    ({ size, isDisabled, isSelected }) => css`
+      border: 2px solid transparent;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-bottom: ${tokens.spaceSm};
+      padding: ${tokens.spaceSm};
+      ${fontSize[size]}
 
-    &:hover {
-      ${isDisabled ? "cursor: not-allowed;" : ""};
-    }
+      &:hover {
+        ${isDisabled ? "cursor: not-allowed;" : ""};
+      }
 
-    ${isSelected ? `background: ${blueSelected};` : ""}
-    ${isDisabled ? disabledStyles : stateStyles}
-  `
+      ${isSelected ? `background: ${blueSelected};` : ""}
+      ${isDisabled ? disabledStyles : stateStyles}
+    `
+  )
 );

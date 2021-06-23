@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 import tokens from "@paprika/tokens";
+import { theme } from "@paprika/themes";
 import stylers from "@paprika/stylers";
 
-export const Divider = styled.li(
-  ({ isDisabled }) => css`
+export const Divider = styled.li(({ isDisabled }) => {
+  return css`
     align-items: center;
     border: 2px solid transparent;
     color: ${isDisabled ? tokens.color.blackLighten60 : tokens.color.blackLighten20};
@@ -22,5 +23,5 @@ export const Divider = styled.li(
       height: 1px;
       margin-left: ${tokens.space};
     }
-  `
-);
+  `;
+});

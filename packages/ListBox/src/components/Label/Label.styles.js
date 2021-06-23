@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import tokens from "@paprika/tokens";
 import stylers from "@paprika/stylers";
+import { theme } from "@paprika/themes";
 
 const placeholderStyles = ({ isDisabled }) => css`
   ${stylers.placeholder};
@@ -17,7 +18,10 @@ export const labelStyles = css`
 `;
 
 export const Label = styled.span(
-  ({ isPlaceholder, hasImplicitAll }) => css`
-    ${isPlaceholder && !hasImplicitAll ? placeholderStyles : ""}
-  `
+  theme(
+    "ListBox.Label",
+    ({ isPlaceholder, hasImplicitAll }) => css`
+      ${isPlaceholder && !hasImplicitAll ? placeholderStyles : ""}
+    `
+  )
 );

@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import stylers from "@paprika/stylers";
 import tokens from "@paprika/tokens";
+import { theme } from "@paprika/themes";
 
 const isInlineCSS = css`
   border-top: 0;

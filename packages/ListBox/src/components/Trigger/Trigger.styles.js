@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import stylers from "@paprika/stylers";
+import { theme } from "@paprika/themes";
 import tokens from "@paprika/tokens";
 import CaretDownIcon from "@paprika/icon/lib/CaretDown";
 import CaretUpIcon from "@paprika/icon/lib/CaretUp";
@@ -74,10 +75,16 @@ const triggerStylesProps = ({ isHidden, isInline, isReadOnly }) => {
       `;
 };
 
-export const ListBoxTrigger = styled.div`
-  position: relative;
-  ${triggerStylesProps}
-`;
+export const ListBoxTrigger = styled.div(
+  theme(
+    "ListBox.Trigger",
+    () =>
+      css`
+        position: relative;
+        ${triggerStylesProps}
+      `
+  )
+);
 
 const iconStyles = ({ isDisabled }) => css`
   color: ${isDisabled ? tokens.color.blackLighten60 : tokens.textColor.icon};
@@ -89,20 +96,37 @@ const iconStyles = ({ isDisabled }) => css`
   top: 0;
 `;
 
-export const UpIcon = styled(CaretUpIcon)`
-  ${iconStyles}
-`;
+export const UpIcon = styled(CaretUpIcon)(
+  theme(
+    "ListBox.Trigger.UpIcon",
+    () => css`
+      ${iconStyles}
+    `
+  )
+);
 
-export const DownIcon = styled(CaretDownIcon)`
-  ${iconStyles}
-`;
+export const DownIcon = styled(CaretDownIcon)(
+  theme(
+    "ListBox.Trigger.DownIcon",
+    () => css`
+      ${iconStyles}
+    `
+  )
+);
 
-export const ClearIcon = styled(TimesCircleIcon)`
-  ${iconStyles}
-`;
+export const ClearIcon = styled(TimesCircleIcon)(
+  theme(
+    "ListBox.Trigger.ClearIcon",
+    () => css`
+      ${iconStyles}
+    `
+  )
+);
 
 export const ClearButton = styled(Button.Icon)(
-  ({ shouldHideCaret, isDisabled }) => css`
+  theme(
+    "ListBox.Trigger.ClearButton",
+    ({ shouldHideCaret, isDisabled }) => css`
     height: 100%;
     margin-right: 2px;
     position: absolute;
@@ -122,4 +146,5 @@ export const ClearButton = styled(Button.Icon)(
       vertical-align: text-top;
     }
   `
+  )
 );
