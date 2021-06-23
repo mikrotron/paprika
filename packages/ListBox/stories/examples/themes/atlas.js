@@ -3,19 +3,11 @@ import { ThemeProvider } from "styled-components";
 
 import ListBox from "../../../src";
 import * as characters from "../../fixtures/characters";
-// import atlas from "../../../src/themes/atlas";
+import atlas from "../../../src/themes/atlas";
 
 export default function AtlasTheme() {
   return (
-    <ThemeProvider
-      theme={{
-        "ListBox.Divider": ({ css, nextCSS, ...props }) => {
-          return css`
-            border: 1px solid red;
-          `;
-        },
-      }}
-    >
+    <ThemeProvider theme={atlas}>
       <ListBox isMulti isOpen>
         <ListBox.Divider>Hi!</ListBox.Divider>
         {characters.antiHeroesRaw.map(item => {
